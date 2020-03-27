@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/main.cpp
+QtWidgets/QApplication
+-
+QtWidgets/QWidget
+-
+QtWidgets/QGridLayout
+-
+QtWidgets/QLabel
+-
+iostream
+-
+

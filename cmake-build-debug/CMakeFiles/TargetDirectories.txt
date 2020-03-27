@@ -1,0 +1,4 @@
+/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/HelloWorld.dir
+/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/Project_andlestick_hart.dir
