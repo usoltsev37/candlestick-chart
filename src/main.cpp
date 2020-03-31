@@ -3,6 +3,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <iostream>
+#include "MainDialog.h"
 
 using namespace std;
 
@@ -20,6 +21,9 @@ int main(int argc, char *argv[]) {
     gridLayout->addWidget(label);
 
     widget.show();
+
+    MainDialog *dialog = new MainDialog;
+    dialog->show();
 
     return app.exec();
 }
