@@ -61,6 +61,8 @@ all: CMakeFiles/Project_andlestick_hart.dir/all
 # The main recursive "clean" target.
 clean: CMakeFiles/HelloWorld.dir/clean
 clean: CMakeFiles/Project_andlestick_hart.dir/clean
+clean: CMakeFiles/HelloWorld_autogen.dir/clean
+clean: CMakeFiles/Project_andlestick_hart_autogen.dir/clean
 
 .PHONY : clean
 
@@ -73,15 +75,15 @@ preinstall:
 # Target rules for target CMakeFiles/HelloWorld.dir
 
 # All Build rule for target.
-CMakeFiles/HelloWorld.dir/all:
+CMakeFiles/HelloWorld.dir/all: CMakeFiles/HelloWorld_autogen.dir/all
 	$(MAKE) -f CMakeFiles/HelloWorld.dir/build.make CMakeFiles/HelloWorld.dir/depend
 	$(MAKE) -f CMakeFiles/HelloWorld.dir/build.make CMakeFiles/HelloWorld.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target HelloWorld"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target HelloWorld"
 .PHONY : CMakeFiles/HelloWorld.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/HelloWorld.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/HelloWorld.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/HelloWorld.dir/rule
@@ -100,15 +102,15 @@ CMakeFiles/HelloWorld.dir/clean:
 # Target rules for target CMakeFiles/Project_andlestick_hart.dir
 
 # All Build rule for target.
-CMakeFiles/Project_andlestick_hart.dir/all:
+CMakeFiles/Project_andlestick_hart.dir/all: CMakeFiles/Project_andlestick_hart_autogen.dir/all
 	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/depend
 	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=3,4,5,6,7,8 "Built target Project_andlestick_hart"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=5,6,7,8,9,10,11,12 "Built target Project_andlestick_hart"
 .PHONY : CMakeFiles/Project_andlestick_hart.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Project_andlestick_hart.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Project_andlestick_hart.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Project_andlestick_hart.dir/rule
@@ -122,6 +124,60 @@ Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/rule
 CMakeFiles/Project_andlestick_hart.dir/clean:
 	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/clean
 .PHONY : CMakeFiles/Project_andlestick_hart.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/HelloWorld_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/HelloWorld_autogen.dir/all:
+	$(MAKE) -f CMakeFiles/HelloWorld_autogen.dir/build.make CMakeFiles/HelloWorld_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/HelloWorld_autogen.dir/build.make CMakeFiles/HelloWorld_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=4 "Built target HelloWorld_autogen"
+.PHONY : CMakeFiles/HelloWorld_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/HelloWorld_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/HelloWorld_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/HelloWorld_autogen.dir/rule
+
+# Convenience name for target.
+HelloWorld_autogen: CMakeFiles/HelloWorld_autogen.dir/rule
+
+.PHONY : HelloWorld_autogen
+
+# clean rule for target.
+CMakeFiles/HelloWorld_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/HelloWorld_autogen.dir/build.make CMakeFiles/HelloWorld_autogen.dir/clean
+.PHONY : CMakeFiles/HelloWorld_autogen.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/Project_andlestick_hart_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/Project_andlestick_hart_autogen.dir/all:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart_autogen.dir/build.make CMakeFiles/Project_andlestick_hart_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart_autogen.dir/build.make CMakeFiles/Project_andlestick_hart_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=13 "Built target Project_andlestick_hart_autogen"
+.PHONY : CMakeFiles/Project_andlestick_hart_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/Project_andlestick_hart_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Project_andlestick_hart_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/Project_andlestick_hart_autogen.dir/rule
+
+# Convenience name for target.
+Project_andlestick_hart_autogen: CMakeFiles/Project_andlestick_hart_autogen.dir/rule
+
+.PHONY : Project_andlestick_hart_autogen
+
+# clean rule for target.
+CMakeFiles/Project_andlestick_hart_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart_autogen.dir/build.make CMakeFiles/Project_andlestick_hart_autogen.dir/clean
+.PHONY : CMakeFiles/Project_andlestick_hart_autogen.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

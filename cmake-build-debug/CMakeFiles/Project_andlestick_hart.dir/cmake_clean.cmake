@@ -1,4 +1,9 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Project_andlestick_hart_autogen.dir/AutogenOldSettings.txt"
+  "CMakeFiles/Project_andlestick_hart_autogen.dir/ParseCache.txt"
+  "Project_andlestick_hart_autogen"
+  "CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o"
   "CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o"
   "CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o"
   "CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o"

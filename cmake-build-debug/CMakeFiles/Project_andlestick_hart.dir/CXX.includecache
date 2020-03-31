@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../include/MainDialog.h
+QDialog
+-
+
 /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/main.cpp
 QtWidgets/QApplication
 -
@@ -16,5 +20,17 @@ QtWidgets/QGridLayout
 QtWidgets/QLabel
 -
 iostream
+-
+MainDialog.h
+/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/MainDialog.h
+
+/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDialog
+qdialog.h
+/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h
+
+/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h
+QtWidgets/qtwidgetsglobal.h
+-
+QtWidgets/qwidget.h
 -
 

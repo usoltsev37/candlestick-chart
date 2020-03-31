@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/mocs_compilation.cpp" "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o"
+  "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/MainDialog.cpp" "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o"
   "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/controller.cpp" "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o"
   "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/load.cpp" "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o"
   "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/main.cpp" "/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o"
@@ -21,6 +23,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "Project_andlestick_hart_autogen/include"
   "../include"
   "/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework"
   "/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers"

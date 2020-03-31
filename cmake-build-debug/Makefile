@@ -136,6 +136,113 @@ Project_andlestick_hart/fast:
 	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/build
 .PHONY : Project_andlestick_hart/fast
 
+#=============================================================================
+# Target rules for targets named HelloWorld_autogen
+
+# Build rule for target.
+HelloWorld_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 HelloWorld_autogen
+.PHONY : HelloWorld_autogen
+
+# fast build rule for target.
+HelloWorld_autogen/fast:
+	$(MAKE) -f CMakeFiles/HelloWorld_autogen.dir/build.make CMakeFiles/HelloWorld_autogen.dir/build
+.PHONY : HelloWorld_autogen/fast
+
+#=============================================================================
+# Target rules for targets named Project_andlestick_hart_autogen
+
+# Build rule for target.
+Project_andlestick_hart_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Project_andlestick_hart_autogen
+.PHONY : Project_andlestick_hart_autogen
+
+# fast build rule for target.
+Project_andlestick_hart_autogen/fast:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart_autogen.dir/build.make CMakeFiles/Project_andlestick_hart_autogen.dir/build
+.PHONY : Project_andlestick_hart_autogen/fast
+
+HelloWorld_autogen/mocs_compilation.o: HelloWorld_autogen/mocs_compilation.cpp.o
+
+.PHONY : HelloWorld_autogen/mocs_compilation.o
+
+# target to build an object file
+HelloWorld_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/HelloWorld.dir/build.make CMakeFiles/HelloWorld.dir/HelloWorld_autogen/mocs_compilation.cpp.o
+.PHONY : HelloWorld_autogen/mocs_compilation.cpp.o
+
+HelloWorld_autogen/mocs_compilation.i: HelloWorld_autogen/mocs_compilation.cpp.i
+
+.PHONY : HelloWorld_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+HelloWorld_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/HelloWorld.dir/build.make CMakeFiles/HelloWorld.dir/HelloWorld_autogen/mocs_compilation.cpp.i
+.PHONY : HelloWorld_autogen/mocs_compilation.cpp.i
+
+HelloWorld_autogen/mocs_compilation.s: HelloWorld_autogen/mocs_compilation.cpp.s
+
+.PHONY : HelloWorld_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+HelloWorld_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/HelloWorld.dir/build.make CMakeFiles/HelloWorld.dir/HelloWorld_autogen/mocs_compilation.cpp.s
+.PHONY : HelloWorld_autogen/mocs_compilation.cpp.s
+
+Project_andlestick_hart_autogen/mocs_compilation.o: Project_andlestick_hart_autogen/mocs_compilation.cpp.o
+
+.PHONY : Project_andlestick_hart_autogen/mocs_compilation.o
+
+# target to build an object file
+Project_andlestick_hart_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o
+.PHONY : Project_andlestick_hart_autogen/mocs_compilation.cpp.o
+
+Project_andlestick_hart_autogen/mocs_compilation.i: Project_andlestick_hart_autogen/mocs_compilation.cpp.i
+
+.PHONY : Project_andlestick_hart_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+Project_andlestick_hart_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.i
+.PHONY : Project_andlestick_hart_autogen/mocs_compilation.cpp.i
+
+Project_andlestick_hart_autogen/mocs_compilation.s: Project_andlestick_hart_autogen/mocs_compilation.cpp.s
+
+.PHONY : Project_andlestick_hart_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+Project_andlestick_hart_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.s
+.PHONY : Project_andlestick_hart_autogen/mocs_compilation.cpp.s
+
+src/MainDialog.o: src/MainDialog.cpp.o
+
+.PHONY : src/MainDialog.o
+
+# target to build an object file
+src/MainDialog.cpp.o:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o
+.PHONY : src/MainDialog.cpp.o
+
+src/MainDialog.i: src/MainDialog.cpp.i
+
+.PHONY : src/MainDialog.i
+
+# target to preprocess a source file
+src/MainDialog.cpp.i:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.i
+.PHONY : src/MainDialog.cpp.i
+
+src/MainDialog.s: src/MainDialog.cpp.s
+
+.PHONY : src/MainDialog.s
+
+# target to generate assembly for a file
+src/MainDialog.cpp.s:
+	$(MAKE) -f CMakeFiles/Project_andlestick_hart.dir/build.make CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.s
+.PHONY : src/MainDialog.cpp.s
+
 src/controller.o: src/controller.cpp.o
 
 .PHONY : src/controller.o
@@ -284,6 +391,17 @@ help:
 	@echo "... edit_cache"
 	@echo "... HelloWorld"
 	@echo "... Project_andlestick_hart"
+	@echo "... HelloWorld_autogen"
+	@echo "... Project_andlestick_hart_autogen"
+	@echo "... HelloWorld_autogen/mocs_compilation.o"
+	@echo "... HelloWorld_autogen/mocs_compilation.i"
+	@echo "... HelloWorld_autogen/mocs_compilation.s"
+	@echo "... Project_andlestick_hart_autogen/mocs_compilation.o"
+	@echo "... Project_andlestick_hart_autogen/mocs_compilation.i"
+	@echo "... Project_andlestick_hart_autogen/mocs_compilation.s"
+	@echo "... src/MainDialog.o"
+	@echo "... src/MainDialog.i"
+	@echo "... src/MainDialog.s"
 	@echo "... src/controller.o"
 	@echo "... src/controller.i"
 	@echo "... src/controller.s"

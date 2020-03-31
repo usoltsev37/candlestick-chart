@@ -57,9 +57,22 @@ include CMakeFiles/Project_andlestick_hart.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Project_andlestick_hart.dir/flags.make
 
+CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
+CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o: Project_andlestick_hart_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/mocs_compilation.cpp
+
+CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/mocs_compilation.cpp > CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.i
+
+CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/mocs_compilation.cpp -o CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.s
+
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/main.cpp
 
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.i: cmake_force
@@ -72,7 +85,7 @@ CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: ../src/controller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/controller.cpp
 
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.s: cmake_force
 
 CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
 CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o: ../src/load.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/load.cpp
 
 CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.s: cmake_force
 
 CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
 CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o: ../src/model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/model.cpp
 
 CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.s: cmake_force
 
 CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
 CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o: ../src/view.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/view.cpp
 
 CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.i: cmake_force
@@ -122,28 +135,45 @@ CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/view.cpp -o CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.s
 
+CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: CMakeFiles/Project_andlestick_hart.dir/flags.make
+CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: ../src/MainDialog.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o -c /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/MainDialog.cpp
+
+CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/MainDialog.cpp > CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.i
+
+CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/MainDialog.cpp -o CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.s
+
 # Object files for target Project_andlestick_hart
 Project_andlestick_hart_OBJECTS = \
+"CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o" \
 "CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o" \
 "CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o" \
 "CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o" \
-"CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o"
+"CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o" \
+"CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o"
 
 # External object files for target Project_andlestick_hart
 Project_andlestick_hart_EXTERNAL_OBJECTS =
 
+Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_compilation.cpp.o
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/src/view.cpp.o
+Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/build.make
 Project_andlestick_hart: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/QtWidgets
 Project_andlestick_hart: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtGui.framework/QtGui
 Project_andlestick_hart: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/QtCore
 Project_andlestick_hart: CMakeFiles/Project_andlestick_hart.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Project_andlestick_hart"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Project_andlestick_hart"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Project_andlestick_hart.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

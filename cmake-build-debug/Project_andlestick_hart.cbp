@@ -44,6 +44,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/HelloWorld_autogen/include"/>
 					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
@@ -66,6 +67,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/HelloWorld_autogen/include"/>
 					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
@@ -91,6 +93,7 @@
 					<Add option="-DQT_CORE_LIB"/>
 					<Add option="-DQT_GUI_LIB"/>
 					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/include"/>
 					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include"/>
 					<Add directory="/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework"/>
 					<Add directory="/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers"/>
@@ -124,6 +127,7 @@
 					<Add option="-DQT_CORE_LIB"/>
 					<Add option="-DQT_GUI_LIB"/>
 					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/include"/>
 					<Add directory="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include"/>
 					<Add directory="/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework"/>
 					<Add directory="/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers"/>
@@ -147,7 +151,37 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="HelloWorld_autogen">
+				<Option working_dir="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 HelloWorld_autogen"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Project_andlestick_hart_autogen">
+				<Option working_dir="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 Project_andlestick_hart_autogen"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
+		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/HelloWorld_autogen/mocs_compilation.cpp">
+			<Option target="HelloWorld"/>
+		</Unit>
+		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/cmake-build-debug/Project_andlestick_hart_autogen/mocs_compilation.cpp">
+			<Option target="Project_andlestick_hart"/>
+		</Unit>
+		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include/MainDialog.h">
+			<Option target="HelloWorld"/>
+			<Option target="Project_andlestick_hart"/>
+		</Unit>
 		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include/controller.h">
 			<Option target="Project_andlestick_hart"/>
 		</Unit>
@@ -158,6 +192,9 @@
 			<Option target="Project_andlestick_hart"/>
 		</Unit>
 		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/include/view.h">
+			<Option target="Project_andlestick_hart"/>
+		</Unit>
+		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/MainDialog.cpp">
 			<Option target="Project_andlestick_hart"/>
 		</Unit>
 		<Unit filename="/Users/thebest/Documents/HSE/semester_2/Project_Сandlestick_Сhart/src/controller.cpp">

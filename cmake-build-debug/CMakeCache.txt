@@ -227,6 +227,9 @@ Project_andlestick_hart_SOURCE_DIR:STATIC=/Users/thebest/Documents/HSE/semester_
 //The directory containing a CMake configuration file for Qt5Core.
 Qt5Core_DIR:PATH=/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/cmake/Qt5Core
 
+//The directory containing a CMake configuration file for Qt5Dialog.
+Qt5Dialog_DIR:PATH=Qt5Dialog_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for Qt5Gui.
 Qt5Gui_DIR:PATH=/Users/thebest/Documents/Qt/5.14.1/clang_64/lib/cmake/Qt5Gui
 

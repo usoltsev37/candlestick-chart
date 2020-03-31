@@ -80,6 +80,8 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "CMakeFiles/HelloWorld_autogen.dir/AutogenInfo.cmake"
+  "CMakeFiles/Project_andlestick_hart_autogen.dir/AutogenInfo.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
@@ -87,4 +89,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/HelloWorld.dir/DependInfo.cmake"
   "CMakeFiles/Project_andlestick_hart.dir/DependInfo.cmake"
+  "CMakeFiles/HelloWorld_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/Project_andlestick_hart_autogen.dir/DependInfo.cmake"
   )
