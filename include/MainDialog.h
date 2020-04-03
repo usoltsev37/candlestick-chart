@@ -2,6 +2,7 @@
 #define PROJECT_ANDLESTICK_HART_MAINDIALOG_H
 
 #include <QDialog>
+#include <QDateTimeEdit>
 
 class QLabel;
 
@@ -21,8 +22,8 @@ private slots:
     void enableFindButton(const QString &text);
 
 private:
-    QLabel *label;
-    QLineEdit *lineEdit;
+    QLabel *label_CompanyName;
+    QLineEdit *CompanyName;
     QPushButton *graphButton;
 };
 

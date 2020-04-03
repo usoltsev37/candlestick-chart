@@ -7,22 +7,22 @@
 #include <QHBoxLayout>
 
 MainDialog::MainDialog(QWidget *parent) : QDialog(parent) {
-    label = new QLabel(tr("Company: "));
-    lineEdit = new QLineEdit;
-    label->setBuddy(lineEdit);
+    label_CompanyName = new QLabel(tr("Company: "));
+    CompanyName = new QLineEdit;
+    label_CompanyName->setBuddy(CompanyName);
     graphButton = new QPushButton("&Draw");
     graphButton->setDefault(true);
     graphButton->setEnabled(false);
 
-    connect(lineEdit, SIGNAL(textChanged(
+    connect(CompanyName, SIGNAL(textChanged(
                                      const QString &)),
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton, SIGNAL(clicked()), this, SLOT(findClicked()));
 
     QHBoxLayout *leftLayout = new QHBoxLayout;
-    leftLayout->addWidget(label);
-    leftLayout->addWidget(lineEdit);
+    leftLayout->addWidget(label_CompanyName);
+    leftLayout->addWidget(CompanyName);
     leftLayout->addStretch();                  // растяжка вниз
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(graphButton);
@@ -37,7 +37,7 @@ MainDialog::MainDialog(QWidget *parent) : QDialog(parent) {
 }
 
 void MainDialog::findClicked() {
-    QString text = lineEdit->text();
+    QString text = CompanyName->text();
 }
 
 void MainDialog::enableFindButton(const QString &text) {
