@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QDateTimeEdit>
 
 MainDialog::MainDialog(QWidget *parent) : QDialog(parent) {
     label_CompanyName = new QLabel(tr("Company: "));
@@ -13,17 +14,39 @@ MainDialog::MainDialog(QWidget *parent) : QDialog(parent) {
     graphButton = new QPushButton("&Draw");
     graphButton->setDefault(true);
     graphButton->setEnabled(false);
+    label_dateFrom = new QLabel(tr("Date From: "));
+    label_dateTo = new QLabel(tr("Date To: "));
+    dateFrom = new QDateTimeEdit(QDate(2020, 02, 01));
+    dateTo = new QDateTimeEdit(QDate::currentDate());
+    dateTo->setMaximumDate(QDate::currentDate());
+    dateTo->setMinimumDate(dateFrom->date());
+    // dateFrom->setMaximumDate(dateTo->date());
+    dateFrom->setDisplayFormat("yyyy.MM.dd");
+    dateTo->setDisplayFormat("yyyy.MM.dd");
 
     connect(CompanyName, SIGNAL(textChanged(
-                                     const QString &)),
+                                        const QString &)),
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton, SIGNAL(clicked()), this, SLOT(findClicked()));
 
-    QHBoxLayout *leftLayout = new QHBoxLayout;
-    leftLayout->addWidget(label_CompanyName);
-    leftLayout->addWidget(CompanyName);
-    leftLayout->addStretch();                  // растяжка вниз
+    QHBoxLayout *topLeftLayout = new QHBoxLayout;
+    topLeftLayout->addWidget(label_CompanyName);
+    topLeftLayout->addWidget(CompanyName);
+
+    QHBoxLayout *midLeftLayout = new QHBoxLayout;
+    midLeftLayout->addWidget(label_dateFrom);
+    midLeftLayout->addWidget(dateFrom);
+    QHBoxLayout *bottomLeftLayout = new QHBoxLayout;
+    bottomLeftLayout->addWidget(label_dateTo);
+    bottomLeftLayout->addWidget(dateTo);
+    //bottomLeftLayout->addStretch();                  // растяжка вниз
+
+    QVBoxLayout *leftLayout = new QVBoxLayout;
+    leftLayout->addLayout(topLeftLayout);
+    leftLayout->addLayout(midLeftLayout);
+    leftLayout->addLayout(bottomLeftLayout);
+
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(graphButton);
     rightLayout->addStretch();

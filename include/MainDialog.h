@@ -2,13 +2,14 @@
 #define PROJECT_ANDLESTICK_HART_MAINDIALOG_H
 
 #include <QDialog>
-#include <QDateTimeEdit>
 
 class QLabel;
 
 class QLineEdit;
 
 class QPushButton;
+
+class QDateTimeEdit;
 
 class MainDialog : public QDialog {
 Q_OBJECT
@@ -25,6 +26,10 @@ private:
     QLabel *label_CompanyName;
     QLineEdit *CompanyName;
     QPushButton *graphButton;
+    QLabel *label_dateFrom;
+    QLabel *label_dateTo;
+    QDateTimeEdit *dateFrom;
+    QDateTimeEdit *dateTo;
 };
 
 #endif //PROJECT_ANDLESTICK_HART_MAINDIALOG_H
