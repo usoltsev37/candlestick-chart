@@ -8,15 +8,15 @@
 #include <QDateTimeEdit>
 
 MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent)
-        : company(company), dateFrom_(dateFrom), dateTo_(dateTo), QDialog(parent) {
-    label_CompanyName = new QLabel(tr("Company: "));
-    CompanyName = new QLineEdit;
-    label_CompanyName->setBuddy(CompanyName);
-    graphButton = new QPushButton("&Draw");
-    graphButton->setDefault(true);
-    graphButton->setEnabled(false);
-    label_dateFrom = new QLabel(tr("Date From: "));
-    label_dateTo = new QLabel(tr("Date To: "));
+        : company_(company), dateFrom_(dateFrom), dateTo_(dateTo), QDialog(parent) {
+    labelCompanyName_ = new QLabel(tr("Company: "));
+    CompanyName_ = new QLineEdit;
+    labelCompanyName_->setBuddy(CompanyName_);
+    graphButton_ = new QPushButton("&Draw");
+    graphButton_->setDefault(true);
+    graphButton_->setEnabled(false);
+    labelDateFrom_ = new QLabel(tr("Date From: "));
+    labelDateTo_ = new QLabel(tr("Date To: "));
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01));
     dateTo_ = new QDateTimeEdit(QDate::currentDate());
     dateTo_->setMaximumDate(QDate::currentDate());
@@ -25,21 +25,21 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     dateFrom_->setDisplayFormat("yyyy.MM.dd");
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
-    connect(CompanyName, SIGNAL(textChanged(
+    connect(CompanyName_, SIGNAL(textChanged(
                                         const QString &)),
             this, SLOT(enableFindButton(
                                const QString &)));
-    connect(graphButton, SIGNAL(clicked()), this, SLOT(findClicked()));
+    connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
-    topLeftLayout->addWidget(label_CompanyName);
-    topLeftLayout->addWidget(CompanyName);
+    topLeftLayout->addWidget(labelCompanyName_);
+    topLeftLayout->addWidget(CompanyName_);
 
     QHBoxLayout *midLeftLayout = new QHBoxLayout;
-    midLeftLayout->addWidget(label_dateFrom);
+    midLeftLayout->addWidget(labelDateFrom_);
     midLeftLayout->addWidget(dateFrom_);
     QHBoxLayout *bottomLeftLayout = new QHBoxLayout;
-    bottomLeftLayout->addWidget(label_dateTo);
+    bottomLeftLayout->addWidget(labelDateTo_);
     bottomLeftLayout->addWidget(dateTo_);
     //bottomLeftLayout->addStretch();                  // растяжка вниз
 
@@ -49,7 +49,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     leftLayout->addLayout(bottomLeftLayout);
 
     QVBoxLayout *rightLayout = new QVBoxLayout;
-    rightLayout->addWidget(graphButton);
+    rightLayout->addWidget(graphButton_);
     rightLayout->addStretch();
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addLayout(leftLayout);
@@ -61,11 +61,11 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 }
 
 void MainDialog::findClicked() {
-    QString text = CompanyName->text();
-    company = CompanyName->text();
+    QString text = CompanyName_->text();
+    company_ = CompanyName_->text();
 }
 
 void MainDialog::enableFindButton(const QString &text) {
-    graphButton->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
+    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
                                              // TODO период никогда не был пустым
 }

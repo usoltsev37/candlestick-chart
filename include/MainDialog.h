@@ -23,12 +23,12 @@ private slots:
     void enableFindButton(const QString &text);
 
 private:
-    QString &company;
-    QLabel *label_CompanyName;
-    QLineEdit *CompanyName;
-    QPushButton *graphButton;
-    QLabel *label_dateFrom;
-    QLabel *label_dateTo;
+    QString &company_;
+    QLabel *labelCompanyName_;
+    QLineEdit *CompanyName_;
+    QPushButton *graphButton_;
+    QLabel *labelDateFrom_;
+    QLabel *labelDateTo_;
     QDateTimeEdit *dateFrom_;
     QDateTimeEdit *dateTo_;
 };
