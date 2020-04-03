@@ -3,7 +3,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <iostream>
-#include "MainDialog.h"
+#include "controller.h"
 
 using namespace std;
 
@@ -22,8 +22,9 @@ int main(int argc, char *argv[]) {
 
     widget.show();
 
-    MainDialog *dialog = new MainDialog;
-    dialog->show();
+    controller contr;
+    contr.show_dialog();
+
 
     return app.exec();
 }

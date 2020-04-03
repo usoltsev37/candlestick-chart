@@ -2,8 +2,8 @@
 #include <model.h>
 #include <string>
 
-controller::controller(std::string company, std::string period) {
-
+controller::controller() {
+    dialog = new MainDialog(company, dateFrom, dateTo);
 }
 
 std::string controller::get_url() {
@@ -16,4 +16,8 @@ std::size_t controller::request_for_load() {
 
 void controller::request_for_view(std::size_t index) {
 
+}
+
+void controller::show_dialog() {
+    dialog->show();
 }

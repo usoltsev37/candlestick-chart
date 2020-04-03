@@ -10,22 +10,29 @@ CMakeFiles/Project_andlestick_hart.dir/Project_andlestick_hart_autogen/mocs_comp
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: ../include/MainDialog.h
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: ../src/MainDialog.cpp
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtGui.framework/QtGui
+CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDateTimeEdit
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDialog
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QLabel
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QLineEdit
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QPushButton
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h
+CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h
 CMakeFiles/Project_andlestick_hart.dir/src/MainDialog.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h
 
+CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: ../include/MainDialog.h
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: ../include/controller.h
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: ../include/model.h
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: ../src/controller.cpp
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers/QJsonArray
 CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers/qjsonarray.h
+CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDateTimeEdit
+CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDialog
+CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h
+CMakeFiles/Project_andlestick_hart.dir/src/controller.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h
 
 CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o: ../include/load.h
 CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o: ../include/model.h
@@ -36,8 +43,14 @@ CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o: /Users/thebest/Documents/
 CMakeFiles/Project_andlestick_hart.dir/src/load.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers/qurl.h
 
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: ../include/MainDialog.h
+CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: ../include/controller.h
+CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: ../include/model.h
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: ../src/main.cpp
+CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers/QJsonArray
+CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtCore.framework/Headers/qjsonarray.h
+CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDateTimeEdit
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDialog
+CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h
 CMakeFiles/Project_andlestick_hart.dir/src/main.cpp.o: /Users/thebest/Documents/Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h
 
 CMakeFiles/Project_andlestick_hart.dir/src/model.cpp.o: ../include/model.h
