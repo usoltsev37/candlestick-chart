@@ -26,7 +26,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
     connect(CompanyName_, SIGNAL(textChanged(
-                                        const QString &)),
+                                         const QString &)),
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
@@ -58,14 +58,39 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());    // фиксирует высоту
+    manager = new QNetworkAccessManager();
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(managerFinished(QNetworkReply*)));
 }
 
 void MainDialog::findClicked() {
     QString text = CompanyName_->text();
     company_ = CompanyName_->text();
+
+    std::string str = "http://iss.moex.com/iss/history/engines/stock/markets/shares/securities/YNDX.json?from=2019-12-01&till=2019-12-31";
+    char cstr[str.size() + 1];
+    str.copy(cstr, str.size() + 1);
+    cstr[str.size()] = '\0';
+
+    request.setUrl(QUrl(cstr));
+    manager->get(request);
 }
 
 void MainDialog::enableFindButton(const QString &text) {
     graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
-                                             // TODO период никогда не был пустым
+    // TODO период никогда не был пустым
+}
+
+void MainDialog::managerFinished(QNetworkReply *reply) {
+    if (reply->error()) {
+        qDebug() << reply->errorString();
+        return;
+    }
+    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    QJsonObject jsonObj = document.object();
+    QJsonValue value = jsonObj.value("history"); // value is Object;
+    QJsonArray dataObj = value.toObject().value("data").toArray();
+    Model my_model(dataObj);
+    mm = my_model;
+    std::cout << my_model;
 }
