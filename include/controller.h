@@ -1,12 +1,13 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <model.h>
-#include <vector>
+#include "model.h"
 #include "MainDialog.h"
+#include <vector>
 #include <iostream>
 #include <string>
 #include <QDateTimeEdit>
+
 
 class controller {
 public:

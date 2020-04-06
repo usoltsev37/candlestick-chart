@@ -3,6 +3,14 @@
 
 #include <QDialog>
 #include <string>
+#include <iostream>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include "model.h"
+
 class QLabel;
 
 class QLineEdit;
@@ -12,17 +20,20 @@ class QPushButton;
 class QDateTimeEdit;
 
 class MainDialog : public QDialog {
-Q_OBJECT
+    Q_OBJECT
 public:
     MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent = 0);
 
 private slots:
 
-    void findClicked();
-
+            void findClicked();
+    void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
     void enableFindButton(const QString &text);
 
 private:
+    Model mm;
+    QNetworkAccessManager *manager;
+    QNetworkRequest request;
     QString &company_;
     QLabel *labelCompanyName_;
     QLineEdit *CompanyName_;
