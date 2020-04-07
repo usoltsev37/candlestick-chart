@@ -26,7 +26,7 @@ public:
 
 private slots:
 
-            void findClicked();
+    void findClicked();
     void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
     void enableFindButton(const QString &text);
 

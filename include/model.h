@@ -9,6 +9,7 @@ public:
     Model() = default;
 
     explicit Model(QJsonArray data_array);
+    explicit Model(QJsonArray data_array, size_t size_of_array);
 
     ~Model();
 
@@ -24,8 +25,9 @@ private:
     double *open;
     double *low;
     double *high;
-    double *legal_close_price;
     double *close;
+    size_t number_of_futures;
+    std::string* list_of_futures;
 };
 
 std::ostream &operator<<(std::ostream &out, const Model &model);

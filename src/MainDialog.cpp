@@ -68,7 +68,7 @@ void MainDialog::findClicked() {
     QString text = CompanyName_->text();
     company_ = CompanyName_->text();
     load loader;
-    loader.set_url(company_, dateFrom_, dateTo_);
+    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
     request.setUrl(loader.get_url());
     manager->get(request);
 }
@@ -85,9 +85,14 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
     }
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObj = document.object();
-    QJsonValue value = jsonObj.value("history"); // value is Object;
+    QJsonValue value = jsonObj.value("securities"); // value is Object;
     QJsonArray dataObj = value.toObject().value("data").toArray();
-    Model my_model(dataObj);
-    mm = my_model;
-    std::cout << my_model;
+//    for (std::size_t i = 0; i < dataObj.size(); ++i) {
+//        QJsonArray current_array = dataObj[i].toArray();
+//        std::cout <<  i << ':' << current_array[0].toString().toStdString() << '\n';
+//    }
+//    std::cout << dataObj.size() << '\n';
+    Model my_model(dataObj, dataObj.size());
+//    mm = my_model;
+//    std::cout << my_model;
 }
