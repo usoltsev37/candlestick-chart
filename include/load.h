@@ -4,14 +4,18 @@
 #include "model.h"
 #include <string>
 #include <QUrl>
+#include <QDateTimeEdit>
+#include <iostream>
 
 class load {
 public:
-    load(std::string &url); // загружает данные по url в model
+    load() = default;
+    std::string date_to_string(QDateTimeEdit* date);
+    void set_url(QString company, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo);
+    QUrl get_url();
     void do_request();
 private:
     QUrl url;
-    Model model;
 };
 
 #endif // LOAD_H
