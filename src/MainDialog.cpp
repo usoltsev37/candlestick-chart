@@ -87,12 +87,5 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("securities"); // value is Object;
     QJsonArray dataObj = value.toObject().value("data").toArray();
-//    for (std::size_t i = 0; i < dataObj.size(); ++i) {
-//        QJsonArray current_array = dataObj[i].toArray();
-//        std::cout <<  i << ':' << current_array[0].toString().toStdString() << '\n';
-//    }
-//    std::cout << dataObj.size() << '\n';
     Model my_model(dataObj, dataObj.size());
-//    mm = my_model;
-//    std::cout << my_model;
 }

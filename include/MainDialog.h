@@ -25,7 +25,6 @@ public:
     MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent = 0);
 
 private slots:
-
     void findClicked();
     void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
     void enableFindButton(const QString &text);
