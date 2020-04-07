@@ -5,12 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -v -Wall -Wextra")
 
 set(CMAKE_AUTOMOC ON)
-set(Qt5_DIR "~/Qt/5.14.2/gcc_64/lib/cmake")
-set(Qt5Core_DIR "~/Qt/5.14.2/gcc_64/lib/cmake/Qt5Core")
-set(Qt5Gui_DIR "~/Qt/5.14.2/gcc_64/lib/cmake/Qt5Gui")
-set(Qt5Widgets_DIR "~/Qt/5.14.2/gcc_64/lib/cmake/Qt5Widgets")
-set(Qt5Charts_DIR "~/Qt/5.14.2/gcc_64/lib/cmake/Qt5Charts")
-set(Qt5Network_DIR "~/Qt/5.14.2/gcc_64/lib/cmake/Qt5Network")
 
 include_directories("include/")
 

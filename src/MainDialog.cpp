@@ -1,4 +1,5 @@
 #include "MainDialog.h"
+#include "load.h"
 
 #include <QtGui>
 #include <QLabel>
@@ -66,13 +67,9 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 void MainDialog::findClicked() {
     QString text = CompanyName_->text();
     company_ = CompanyName_->text();
-
-    std::string str = "http://iss.moex.com/iss/history/engines/stock/markets/shares/securities/YNDX.json?from=2019-12-01&till=2019-12-31";
-    char cstr[str.size() + 1];
-    str.copy(cstr, str.size() + 1);
-    cstr[str.size()] = '\0';
-
-    request.setUrl(QUrl(cstr));
+    load loader;
+    loader.set_url(company_, dateFrom_, dateTo_);
+    request.setUrl(loader.get_url());
     manager->get(request);
 }
 
