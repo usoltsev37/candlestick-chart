@@ -14,8 +14,10 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     CompanyName_ = new QLineEdit;
     labelCompanyName_->setBuddy(CompanyName_);
     graphButton_ = new QPushButton("&Draw");
-    graphButton_->setDefault(true);
-    graphButton_->setEnabled(false);
+    graphButton_->setDefault(false);
+    graphButton_->setEnabled(true);
+    TEMP_ = new QPushButton("&TEMP");
+    TEMP_->setEnabled(true);
     labelDateFrom_ = new QLabel(tr("Date From: "));
     labelDateTo_ = new QLabel(tr("Date To: "));
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01));
@@ -31,6 +33,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
+    // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(labelCompanyName_);
@@ -51,6 +54,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(graphButton_);
+    rightLayout->addWidget(TEMP_);
     rightLayout->addStretch();
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addLayout(leftLayout);
@@ -62,6 +66,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     manager = new QNetworkAccessManager();
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(managerFinished(QNetworkReply*)));
+
 }
 
 void MainDialog::findClicked() {
