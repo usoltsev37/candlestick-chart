@@ -33,6 +33,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
+    connect(TEMP_, SIGNAL(clicked()), this, SLOT(tempClicked()));
     // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
@@ -63,15 +64,29 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());    // фиксирует высоту
+}
+
+void MainDialog::tempClicked() {
+    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0.json";
+    char cstr[s.size() + 1];
+    s.copy(cstr, s.size() + 1);
+    cstr[s.size()] = '\0';
+    std::cout << s << '\n';
+    QUrl url = QUrl(cstr);
+    manager = new QNetworkAccessManager();
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(anotherRequest(QNetworkReply*)));
+    request.setUrl(url);
+    manager->get(request);
+}
+
+
+void MainDialog::findClicked() {
     manager = new QNetworkAccessManager();
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(managerFinished(QNetworkReply*)));
-
-}
-
-void MainDialog::findClicked() {
     QString text = CompanyName_->text();
-    company_ = CompanyName_->text();
+    company = CompanyName_->text().toStdString();
     load loader;
     loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
     request.setUrl(loader.get_url());
@@ -86,11 +101,17 @@ void MainDialog::enableFindButton(const QString &text) {
 void MainDialog::managerFinished(QNetworkReply *reply) {
     if (reply->error()) {
         qDebug() << reply->errorString();
+        reply->deleteLater();
         return;
     }
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObj = document.object();
-    QJsonValue value = jsonObj.value("securities"); // value is Object;
+    QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
     Model my_model(dataObj, dataObj.size());
 }
+
+void MainDialog::anotherRequest(QNetworkReply *reply) {
+    std::cout << "\nDONE!!!\n\n";
+}
+

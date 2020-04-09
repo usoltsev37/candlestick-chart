@@ -25,9 +25,10 @@ public:
     MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent = 0);
 
 private slots:
-//    void tempClicked();
+    void tempClicked();
     void findClicked();
     void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
+    void anotherRequest(QNetworkReply *reply);
     void enableFindButton(const QString &text);
 
 private:
@@ -35,6 +36,7 @@ private:
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QString &company_;
+    std::string company = "";
     QLabel *labelCompanyName_;
     QLineEdit *CompanyName_;
     QPushButton *graphButton_;
