@@ -114,4 +114,3 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
 void MainDialog::anotherRequest(QNetworkReply *reply) {
     std::cout << "\nDONE!!!\n\n";
 }
-

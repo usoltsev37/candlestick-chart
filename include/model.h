@@ -21,13 +21,13 @@ private:
     size_t size_of_data;
     std::string short_name;
     std::string secid;
-    std::string *date_today;
-    double *open;
-    double *low;
-    double *high;
-    double *close;
+    std::string date_today[10000];
+    double open[10000];
+    double low[10000];
+    double high[10000];
+    double close[10000];
     size_t number_of_futures;
-    std::string* list_of_futures;
+    std::string list_of_futures[10000];
 };
 
 std::ostream &operator<<(std::ostream &out, const Model &model);
