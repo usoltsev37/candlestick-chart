@@ -103,7 +103,7 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
-    Model my_model(dataObj, dataObj.size());
+    mm.set_fields(dataObj, ALL_INSTRUMENTS);
 }
 
 void MainDialog::anotherRequest(QNetworkReply *reply) {
@@ -116,8 +116,8 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("candles");
     QJsonArray dataObj = value.toObject().value("data").toArray();
-    Model my_model(dataObj);
-    std::cout << my_model;
+    mm.set_fields(dataObj, ONE_INSTRUMENT);
+    std::cout << mm;
 }
 
 void MainDialog::enableFindButton(const QString &text) {

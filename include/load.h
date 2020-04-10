@@ -7,6 +7,13 @@
 #include <QDateTimeEdit>
 #include <iostream>
 
+enum RequestType {
+    ALL_INSTRUMENTS = 1,
+    ONE_INSTRUMENT = 2,
+    INTERVALS = 3
+};
+
+
 class load {
 public:
     load() = default;

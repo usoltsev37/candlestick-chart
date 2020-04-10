@@ -1,35 +1,42 @@
 #include "model.h"
 #include <iostream>
 
-Model::Model(QJsonArray data_array) {
-    size_of_data = data_array.size();
-    if (size_of_data == 0) {
+void Model::set_fields(QJsonArray data_array, std::size_t type) {
+    if (data_array.size() == 0) {
         std::cout << "\nERROR\n"; // exceptions?
         return;
     }
-    for (std::size_t i = 0; i < data_array.size(); ++i) {
-        QJsonArray current_array = data_array[i].toArray();
-        open[i] = current_array[0].toDouble();
-        close[i] = current_array[1].toDouble();
-        high[i] = current_array[2].toDouble();
-        low[i] = current_array[3].toDouble();
-        begin_time[i] = convert_to_std_string(current_array[6]);
-        end_time[i] = convert_to_std_string(current_array[7]);
+    if (type == ALL_INSTRUMENTS) {
+        number_of_instruments = data_array.size();
+        for (int i = 0; i < number_of_instruments; ++i) {
+            list_of_futures[i] = convert_to_std_string(data_array[i].toArray()[0]);
+        }
+        std::cout << "All instrument request done\n";
+    }
+    else if (type == ONE_INSTRUMENT) {
+        size_of_data = data_array.size();
+        current_line_number += size_of_data;
+
+        for (std::size_t i = 0; i < size_of_data; ++i) {
+            QJsonArray current_array = data_array[i].toArray();
+            open[i] = current_array[0].toDouble();
+            close[i] = current_array[1].toDouble();
+            high[i] = current_array[2].toDouble();
+            low[i] = current_array[3].toDouble();
+            begin_time[i] = convert_to_std_string(current_array[6]);
+            end_time[i] = convert_to_std_string(current_array[7]);
+        }
+        std::cout << "One instrument request done\n";
+    }
+    else {
+        std::cout << "Unknown type of request\n";
     }
 }
-
-Model::Model(QJsonArray data_array, size_t size_of_array) {
-    number_of_futures = size_of_array;
-    for (int i = 0; i < size_of_array; ++i) {
-        list_of_futures[i] = convert_to_std_string(data_array[i].toArray()[0]);
-        std::cout << i << ':' << list_of_futures[i] << '\n';
-    }
-}
-
 
 std::string Model::convert_to_std_string(QJsonValueRef arg) const {
     return arg.toString().toStdString();
 }
+
 
 std::ostream &operator<<(std::ostream &out, const Model &model) {
     out << "Name : " << model.short_name << "; Secid : " << model.secid << ";\n";
@@ -40,13 +47,4 @@ std::ostream &operator<<(std::ostream &out, const Model &model) {
     }
     out << "--------------------------------------------------\n";
     return out;
-}
-
-Model::~Model() {
-//    delete[] list_of_futures;
-//    delete[] open;
-//    delete[] low;
-//    delete[] high;
-//    delete[] close;
-//    delete[] date_today;
 }
