@@ -67,7 +67,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 }
 
 void MainDialog::tempClicked() {
-    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0.json";
+    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0/candles.json";
     char cstr[s.size() + 1];
     s.copy(cstr, s.size() + 1);
     cstr[s.size()] = '\0';
@@ -93,11 +93,6 @@ void MainDialog::findClicked() {
     manager->get(request);
 }
 
-void MainDialog::enableFindButton(const QString &text) {
-    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
-    // TODO период никогда не был пустым
-}
-
 void MainDialog::managerFinished(QNetworkReply *reply) {
     if (reply->error()) {
         qDebug() << reply->errorString();
@@ -112,5 +107,20 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
 }
 
 void MainDialog::anotherRequest(QNetworkReply *reply) {
-    std::cout << "\nDONE!!!\n\n";
+    if (reply->error()) {
+        qDebug() << reply->errorString();
+        reply->deleteLater();
+        return;
+    }
+    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    QJsonObject jsonObj = document.object();
+    QJsonValue value = jsonObj.value("candles");
+    QJsonArray dataObj = value.toObject().value("data").toArray();
+    Model my_model(dataObj);
+    std::cout << my_model;
+}
+
+void MainDialog::enableFindButton(const QString &text) {
+    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
+    // TODO период никогда не был пустым
 }

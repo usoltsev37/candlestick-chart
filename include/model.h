@@ -21,7 +21,8 @@ private:
     size_t size_of_data;
     std::string short_name;
     std::string secid;
-    std::string date_today[10000];
+    std::string begin_time[10000];
+    std::string end_time[10000];
     double open[10000];
     double low[10000];
     double high[10000];

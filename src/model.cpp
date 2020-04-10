@@ -7,26 +7,19 @@ Model::Model(QJsonArray data_array) {
         std::cout << "\nERROR\n"; // exceptions?
         return;
     }
-    short_name = convert_to_std_string(data_array[0].toArray()[2]);
-    secid = convert_to_std_string(data_array[0].toArray()[3]);
-//    date_today = new std::string[size_of_data];
-//    open = new double[size_of_data];
-//    low = new double[size_of_data];
-//    high = new double[size_of_data];
-//    close = new double[size_of_data];
     for (std::size_t i = 0; i < data_array.size(); ++i) {
         QJsonArray current_array = data_array[i].toArray();
-        date_today[i] = convert_to_std_string(current_array[1]);
-        open[i] = current_array[6].toDouble();
-        low[i] = current_array[7].toDouble();
-        high[i] = current_array[8].toDouble();
-        close[i] = current_array[11].toDouble();
+        open[i] = current_array[0].toDouble();
+        close[i] = current_array[1].toDouble();
+        high[i] = current_array[2].toDouble();
+        low[i] = current_array[3].toDouble();
+        begin_time[i] = convert_to_std_string(current_array[6]);
+        end_time[i] = convert_to_std_string(current_array[7]);
     }
 }
 
 Model::Model(QJsonArray data_array, size_t size_of_array) {
     number_of_futures = size_of_array;
-//    list_of_futures = new std::string[size_of_array];
     for (int i = 0; i < size_of_array; ++i) {
         list_of_futures[i] = convert_to_std_string(data_array[i].toArray()[0]);
         std::cout << i << ':' << list_of_futures[i] << '\n';
@@ -41,7 +34,7 @@ std::string Model::convert_to_std_string(QJsonValueRef arg) const {
 std::ostream &operator<<(std::ostream &out, const Model &model) {
     out << "Name : " << model.short_name << "; Secid : " << model.secid << ";\n";
     for (std::size_t i = 0; i < model.size_of_data; ++i) {
-        out << "date : " << model.date_today[i] << '\n';
+        out << i << ": " << '\n';
         out << "open = " << model.open[i] << "; low = " << model.low[i] << "; high = " << model.high[i]
             << "; close = " << model.close[i] << '\n';
     }
