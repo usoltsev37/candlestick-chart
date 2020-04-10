@@ -14,8 +14,10 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     CompanyName_ = new QLineEdit;
     labelCompanyName_->setBuddy(CompanyName_);
     graphButton_ = new QPushButton("&Draw");
-    graphButton_->setDefault(true);
-    graphButton_->setEnabled(false);
+    graphButton_->setDefault(false);
+    graphButton_->setEnabled(true);
+    TEMP_ = new QPushButton("&TEMP");
+    TEMP_->setEnabled(true);
     labelDateFrom_ = new QLabel(tr("Date From: "));
     labelDateTo_ = new QLabel(tr("Date To: "));
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01));
@@ -31,6 +33,8 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
+    connect(TEMP_, SIGNAL(clicked()), this, SLOT(tempClicked()));
+    // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(labelCompanyName_);
@@ -51,6 +55,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(graphButton_);
+    rightLayout->addWidget(TEMP_);
     rightLayout->addStretch();
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addLayout(leftLayout);
@@ -59,35 +64,63 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());    // фиксирует высоту
-    manager = new QNetworkAccessManager();
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
-                     this, SLOT(managerFinished(QNetworkReply*)));
 }
 
-void MainDialog::findClicked() {
-    QString text = CompanyName_->text();
-    company_ = CompanyName_->text();
-    load loader;
-    loader.set_url(company_, dateFrom_, dateTo_);
-    request.setUrl(loader.get_url());
+void MainDialog::tempClicked() {
+    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0/candles.json";
+    char cstr[s.size() + 1];
+    s.copy(cstr, s.size() + 1);
+    cstr[s.size()] = '\0';
+    std::cout << s << '\n';
+    QUrl url = QUrl(cstr);
+    manager = new QNetworkAccessManager();
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(anotherRequest(QNetworkReply*)));
+    request.setUrl(url);
     manager->get(request);
 }
 
-void MainDialog::enableFindButton(const QString &text) {
-    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
-    // TODO период никогда не был пустым
+
+void MainDialog::findClicked() {
+    manager = new QNetworkAccessManager();
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(managerFinished(QNetworkReply*)));
+    QString text = CompanyName_->text();
+    company = CompanyName_->text().toStdString();
+    load loader;
+    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
+    request.setUrl(loader.get_url());
+    manager->get(request);
 }
 
 void MainDialog::managerFinished(QNetworkReply *reply) {
     if (reply->error()) {
         qDebug() << reply->errorString();
+        reply->deleteLater();
         return;
     }
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObj = document.object();
-    QJsonValue value = jsonObj.value("history"); // value is Object;
+    QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
-    Model my_model(dataObj);
-    mm = my_model;
-    std::cout << my_model;
+    mm.set_fields(dataObj, ALL_INSTRUMENTS);
+}
+
+void MainDialog::anotherRequest(QNetworkReply *reply) {
+    if (reply->error()) {
+        qDebug() << reply->errorString();
+        reply->deleteLater();
+        return;
+    }
+    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    QJsonObject jsonObj = document.object();
+    QJsonValue value = jsonObj.value("candles");
+    QJsonArray dataObj = value.toObject().value("data").toArray();
+    mm.set_fields(dataObj, ONE_INSTRUMENT);
+    std::cout << mm;
+}
+
+void MainDialog::enableFindButton(const QString &text) {
+    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
+    // TODO период никогда не был пустым
 }
