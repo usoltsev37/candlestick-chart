@@ -19,6 +19,8 @@ public:
     load() = default;
     std::string date_to_string(QDateTimeEdit* date);
     void set_url(std::string str);
+    void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo);
+
     QUrl get_url();
     void do_request();
 private:

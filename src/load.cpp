@@ -23,3 +23,13 @@ void load::set_url(std::string str) {
 QUrl load::get_url() {
     return url;
 }
+
+void load::set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo) {
+    str += "?from=" + date_to_string(dateFrom) + "&till=" + date_to_string(dateTo);
+    std::cout << str << '\n';
+    char cstr[str.size() + 1];
+    str.copy(cstr, str.size() + 1);
+    cstr[str.size()] = '\0';
+    url = QUrl(cstr);
+
+}

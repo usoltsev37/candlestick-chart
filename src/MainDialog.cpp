@@ -67,16 +67,14 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 }
 
 void MainDialog::tempClicked() {
-    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0/candles.json";
-    char cstr[s.size() + 1];
-    s.copy(cstr, s.size() + 1);
-    cstr[s.size()] = '\0';
-    std::cout << s << '\n';
-    QUrl url = QUrl(cstr);
+    load loader;
+    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/"
+                    + company+ "/candles.json";
+    loader.set_url(s, dateFrom_, dateTo_);
     manager = new QNetworkAccessManager();
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(anotherRequest(QNetworkReply*)));
-    request.setUrl(url);
+    request.setUrl(loader.get_url());
     manager->get(request);
 }
 
@@ -88,7 +86,8 @@ void MainDialog::findClicked() {
     QString text = CompanyName_->text();
     company = CompanyName_->text().toStdString();
     load loader;
-    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
+    std::string s ="https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json";
+    loader.set_url(s);
     request.setUrl(loader.get_url());
     manager->get(request);
 }
