@@ -70,12 +70,15 @@ void MainDialog::tempClicked() {
     load loader;
     std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/"
                     + company+ "/candles.json";
-    loader.set_url(s, dateFrom_, dateTo_);
     manager = new QNetworkAccessManager();
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(anotherRequest(QNetworkReply*)));
-    request.setUrl(loader.get_url());
-    manager->get(request);
+    for (int i = 1; i <= 2; ++i) {
+        loader.set_url(s, dateFrom_, dateTo_);
+        request.setUrl(loader.get_url());
+        manager->get(request);
+        std::cout << "--__---___---done\n";
+    }
 }
 
 

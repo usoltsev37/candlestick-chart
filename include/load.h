@@ -25,6 +25,7 @@ public:
     void do_request();
 private:
     QUrl url;
+    std::size_t start = 0;
 };
 
 #endif // LOAD_H
