@@ -19,7 +19,7 @@
 class MainDialog : public QDialog {
     Q_OBJECT
 public:
-    MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent = 0);
+    MainDialog(QWidget *parent = 0);
 
 private slots:
     void showClicked();
@@ -33,7 +33,7 @@ private:
     load loader;
     QNetworkAccessManager *manager;
     QNetworkRequest request;
-    QString &company_;
+    QString company_;
     std::string company = "";
     QLabel *labelInstrumentName_;
     QPushButton *graphButton_;

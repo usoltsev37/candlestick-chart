@@ -1,7 +1,7 @@
 #include "MainDialog.h"
 
-MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent)
-        : company_(company), dateFrom_(dateFrom), dateTo_(dateTo), QDialog(parent) {
+MainDialog::MainDialog(QWidget *parent)
+        : QDialog(parent) {
     graphButton_ = new QPushButton(tr("&Draw"));
     graphButton_->setEnabled(true);
     showButton_ = new QPushButton(tr("&SHOW"));
@@ -24,8 +24,8 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
                                       "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
 
     comboBox->addItem("-");
-    for(size_t i = 0; i < list_of_.size(); i++) {
-        comboBox->addItem(QString::fromUtf8(list_of_[i].c_str()));
+    for(auto & future : list_of_) {
+        comboBox->addItem(QString::fromUtf8(future.c_str()));
     }
 
     connect(comboBox, SIGNAL(currentIndexChanged(const QString &)),
