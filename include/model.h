@@ -4,6 +4,7 @@
 #include "load.h"
 #include <string>
 #include <QJsonArray>
+#include <vector>
 
 class Model {
 public:

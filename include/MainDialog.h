@@ -10,6 +10,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include "model.h"
+#include "load.h"
 
 class QLabel;
 
@@ -33,6 +34,7 @@ private slots:
 
 private:
     Model mm;
+    load loader;
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QString &company_;

@@ -3,13 +3,13 @@
 
 void Model::set_fields(QJsonArray data_array, std::size_t type) {
     if (data_array.size() == 0) {
-        std::cout << "\nERROR\n"; // exceptions?
+        std::cout << "\nDataArraySize\n"; // exceptions?
         return;
     }
     if (type == ALL_INSTRUMENTS) {
         number_of_instruments = data_array.size();
         for (int i = 0; i < number_of_instruments; ++i) {
-            list_of_futures[i] = convert_to_std_string(data_array[i].toArray()[0]);
+            list_of_futures.push_back(convert_to_std_string(data_array[i].toArray()[0]));
         }
         std::cout << "All instrument request done\n";
     }
