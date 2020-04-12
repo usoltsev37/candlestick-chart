@@ -4,6 +4,7 @@
 #include "load.h"
 #include <string>
 #include <QJsonArray>
+#include <vector>
 
 class Model {
 public:
@@ -19,14 +20,14 @@ private:
     size_t current_line_number = 0;
     std::string short_name;
     std::string secid;
-    std::string begin_time[10000];
-    std::string end_time[10000];
-    double open[10000];
-    double close[10000];
-    double high[10000];
-    double low[10000];
+    std::vector<std::string> begin_time;
+    std::vector<std::string> end_time;
+    std::vector<double> open;
+    std::vector<double> close;
+    std::vector<double> high;
+    std::vector<double> low;
     size_t number_of_instruments;
-    std::string list_of_futures[10000];
+    std::vector<std::string> list_of_futures;
 };
 
 std::ostream &operator<<(std::ostream &out, const Model &model);

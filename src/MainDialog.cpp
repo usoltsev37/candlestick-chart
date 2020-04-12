@@ -66,32 +66,31 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     setFixedHeight(sizeHint().height());    // фиксирует высоту
 }
 
-void MainDialog::tempClicked() {
-    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0/candles.json";
-    char cstr[s.size() + 1];
-    s.copy(cstr, s.size() + 1);
-    cstr[s.size()] = '\0';
-    std::cout << s << '\n';
-    QUrl url = QUrl(cstr);
-    manager = new QNetworkAccessManager();
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
-                     this, SLOT(anotherRequest(QNetworkReply*)));
-    request.setUrl(url);
-    manager->get(request);
-}
-
-
 void MainDialog::findClicked() {
     manager = new QNetworkAccessManager();
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(managerFinished(QNetworkReply*)));
     QString text = CompanyName_->text();
     company = CompanyName_->text().toStdString();
-    load loader;
-    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
+    std::string s ="https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json";
+    loader.set_url(s);
     request.setUrl(loader.get_url());
     manager->get(request);
 }
+
+void MainDialog::tempClicked() {
+//    load loader;
+    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/"
+                    + company + "/candles.json";
+    manager = new QNetworkAccessManager();
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(anotherRequest(QNetworkReply*)));
+    loader.finish_load = false;
+    loader.set_url(s, dateFrom_, dateTo_);
+    request.setUrl(loader.get_url());
+    manager->get(request);
+}
+
 
 void MainDialog::managerFinished(QNetworkReply *reply) {
     if (reply->error()) {
@@ -112,12 +111,19 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
         reply->deleteLater();
         return;
     }
+    while(!reply->isFinished())
+        qApp->processEvents();
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("candles");
     QJsonArray dataObj = value.toObject().value("data").toArray();
+    std::cout << dataObj.size() << '\n';
+    if (dataObj.size() < 500) {
+        loader.finish_load = true;
+    }
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
+    reply->deleteLater();
 }
 
 void MainDialog::enableFindButton(const QString &text) {
