@@ -2,22 +2,19 @@
 #define PROJECT_ANDLESTICK_HART_MAINDIALOG_H
 
 #include <QDialog>
-#include <string>
-#include <iostream>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QComboBox>
+#include <QtGui>
+#include <QLabel>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QDateTimeEdit>
 #include "model.h"
 #include "load.h"
-
-class QLabel;
-
-class QPushButton;
-
-class QDateTimeEdit;
 
 class MainDialog : public QDialog {
     Q_OBJECT
@@ -38,7 +35,7 @@ private:
     QNetworkRequest request;
     QString &company_;
     std::string company = "";
-    QLabel *labelCompanyName_;
+    QLabel *labelInstrumentName_;
     QPushButton *graphButton_;
     QPushButton *showButton_;
     QLabel *labelDateFrom_;
