@@ -30,7 +30,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     comboBox = new QComboBox;
 
-    std::vector<std::string> list_of_{"YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // убрать
+    std::vector<std::string> list_of_{"SIZ0", "YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // убрать
                                       "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
 
     comboBox->addItem("-");
@@ -84,8 +84,7 @@ void MainDialog::findClicked() { // Влад: findClicked + managerFinished вы
     manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(managerFinished(QNetworkReply*)));
-    QString text = CompanyName_->text();
-    company = CompanyName_->text().toStdString();
+    company = comboBox->currentText().toStdString();
     std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json"; // const?
     loader.set_url(s);
     request.setUrl(loader.get_url());
