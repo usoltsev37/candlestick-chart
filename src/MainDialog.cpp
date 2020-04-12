@@ -3,16 +3,12 @@
 
 #include <QtGui>
 #include <QLabel>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QDateTimeEdit>
 
 MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent)
         : company_(company), dateFrom_(dateFrom), dateTo_(dateTo), QDialog(parent) {
-    labelCompanyName_ = new QLabel(tr("Company: "));
-    CompanyName_ = new QLineEdit;
-    labelCompanyName_->setBuddy(CompanyName_);
     graphButton_ = new QPushButton("&Draw");
     graphButton_->setEnabled(true);
     showButton_ = new QPushButton("&SHOW");
@@ -29,6 +25,8 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
     comboBox = new QComboBox;
+    labelCompanyName_ = new QLabel(tr("Company: "));
+    labelCompanyName_->setBuddy(comboBox);
 
     std::vector<std::string> list_of_{"SIZ0", "YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // убрать
                                       "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
@@ -40,18 +38,12 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     connect(comboBox, SIGNAL(currentIndexChanged(const QString &)),
             this, SLOT(enableShowButton(const QString &)));
-
-    //connect(CompanyName_, SIGNAL(textChanged(
-    //                                    const QString &)),
-    //       this, SLOT(enableFindButton(
-    //                          const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
     connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
     // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(labelCompanyName_);
-    topLeftLayout->addWidget(CompanyName_);
     topLeftLayout->addWidget(comboBox); // пока без коннекта
 
     QHBoxLayout *midLeftLayout = new QHBoxLayout;

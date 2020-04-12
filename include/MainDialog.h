@@ -15,8 +15,6 @@
 
 class QLabel;
 
-class QLineEdit;
-
 class QPushButton;
 
 class QDateTimeEdit;
@@ -41,7 +39,6 @@ private:
     QString &company_;
     std::string company = "";
     QLabel *labelCompanyName_;
-    QLineEdit *CompanyName_;
     QPushButton *graphButton_;
     QPushButton *showButton_;
     QLabel *labelDateFrom_;
