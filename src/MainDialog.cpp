@@ -28,6 +28,11 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     dateFrom_->setDisplayFormat("yyyy.MM.dd");
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
+    comboBox = new QComboBox;
+    comboBox->addItem("1");
+    comboBox->addItem("2");
+    comboBox->addItem("3");
+
     connect(CompanyName_, SIGNAL(textChanged(
                                          const QString &)),
             this, SLOT(enableFindButton(
@@ -39,6 +44,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(labelCompanyName_);
     topLeftLayout->addWidget(CompanyName_);
+    topLeftLayout->addWidget(comboBox); // пока без коннекта
 
     QHBoxLayout *midLeftLayout = new QHBoxLayout;
     midLeftLayout->addWidget(labelDateFrom_);
@@ -72,7 +78,7 @@ void MainDialog::findClicked() {
                      this, SLOT(managerFinished(QNetworkReply*)));
     QString text = CompanyName_->text();
     company = CompanyName_->text().toStdString();
-    std::string s ="https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json";
+    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json"; // const?
     loader.set_url(s);
     request.setUrl(loader.get_url());
     manager->get(request);

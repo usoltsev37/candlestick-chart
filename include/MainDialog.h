@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QComboBox>
 #include "model.h"
 #include "load.h"
 
@@ -47,6 +48,7 @@ private:
     QLabel *labelDateTo_;
     QDateTimeEdit *dateFrom_;
     QDateTimeEdit *dateTo_;
+    QComboBox *comboBox;
 };
 
 #endif //PROJECT_ANDLESTICK_HART_MAINDIALOG_H
