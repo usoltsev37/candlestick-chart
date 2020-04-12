@@ -29,9 +29,13 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
     comboBox = new QComboBox;
-    comboBox->addItem("1");
-    comboBox->addItem("2");
-    comboBox->addItem("3");
+
+    std::vector<std::string> list_of_{"YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU",
+                                      "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
+
+    for(size_t i = 0; i < list_of_.size(); i++) {
+        comboBox->addItem(QString::fromUtf8(list_of_[i].c_str()));
+    }
 
     connect(CompanyName_, SIGNAL(textChanged(
                                          const QString &)),
@@ -72,8 +76,8 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     setFixedHeight(sizeHint().height());    // фиксирует высоту
 }
 
-void MainDialog::findClicked() {
-    manager = new QNetworkAccessManager();
+void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load,
+    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(managerFinished(QNetworkReply*)));
     QString text = CompanyName_->text();
