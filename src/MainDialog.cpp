@@ -16,8 +16,8 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     graphButton_ = new QPushButton("&Draw");
     graphButton_->setDefault(false);
     graphButton_->setEnabled(true);
-    TEMP_ = new QPushButton("&TEMP");
-    TEMP_->setEnabled(true);
+    showButton_ = new QPushButton("&SHOW");
+    showButton_->setEnabled(true);
     labelDateFrom_ = new QLabel(tr("Date From: "));
     labelDateTo_ = new QLabel(tr("Date To: "));
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01));
@@ -30,19 +30,23 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     comboBox = new QComboBox;
 
-    std::vector<std::string> list_of_{"YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU",
+    std::vector<std::string> list_of_{"YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // убрать
                                       "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
 
+    comboBox->addItem("-");
     for(size_t i = 0; i < list_of_.size(); i++) {
         comboBox->addItem(QString::fromUtf8(list_of_[i].c_str()));
     }
+
+    connect(comboBox, SIGNAL(comboBox->currentIndexChanged(QString& str)),
+            this, SLOT(enableShowButton(const QString &)));
 
     connect(CompanyName_, SIGNAL(textChanged(
                                          const QString &)),
             this, SLOT(enableFindButton(
                                const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
-    connect(TEMP_, SIGNAL(clicked()), this, SLOT(tempClicked()));
+    connect(showButton_, SIGNAL(clicked()), this, SLOT(tempClicked()));
     // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
@@ -65,7 +69,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(graphButton_);
-    rightLayout->addWidget(TEMP_);
+    rightLayout->addWidget(showButton_);
     rightLayout->addStretch();
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addLayout(leftLayout);
@@ -136,7 +140,7 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
     reply->deleteLater();
 }
 
-void MainDialog::enableFindButton(const QString &text) {
+void MainDialog::enableShowButton(const QString &text) {
     graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
     // TODO период никогда не был пустым
 }
