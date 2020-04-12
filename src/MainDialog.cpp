@@ -14,10 +14,10 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     CompanyName_ = new QLineEdit;
     labelCompanyName_->setBuddy(CompanyName_);
     graphButton_ = new QPushButton("&Draw");
-    graphButton_->setDefault(false);
     graphButton_->setEnabled(true);
     showButton_ = new QPushButton("&SHOW");
-    showButton_->setEnabled(true);
+    graphButton_->setDefault(true);
+    showButton_->setEnabled(false);
     labelDateFrom_ = new QLabel(tr("Date From: "));
     labelDateTo_ = new QLabel(tr("Date To: "));
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01));
@@ -38,15 +38,15 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
         comboBox->addItem(QString::fromUtf8(list_of_[i].c_str()));
     }
 
-    connect(comboBox, SIGNAL(comboBox->currentIndexChanged(QString& str)),
+    connect(comboBox, SIGNAL(currentIndexChanged(const QString &)),
             this, SLOT(enableShowButton(const QString &)));
 
-    connect(CompanyName_, SIGNAL(textChanged(
-                                         const QString &)),
-            this, SLOT(enableFindButton(
-                               const QString &)));
+    //connect(CompanyName_, SIGNAL(textChanged(
+    //                                    const QString &)),
+    //       this, SLOT(enableFindButton(
+    //                          const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
-    connect(showButton_, SIGNAL(clicked()), this, SLOT(tempClicked()));
+    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
     // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
@@ -92,7 +92,7 @@ void MainDialog::findClicked() { // Влад: findClicked + managerFinished вы
     manager->get(request);
 }
 
-void MainDialog::tempClicked() {
+void MainDialog::showClicked() {
 //    load loader;
     std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/"
                     + company + "/candles.json";
@@ -141,6 +141,6 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
 }
 
 void MainDialog::enableShowButton(const QString &text) {
-    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
+    showButton_->setEnabled(text != "-");
     // TODO период никогда не был пустым
 }

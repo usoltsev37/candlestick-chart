@@ -27,7 +27,7 @@ public:
     MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent = 0);
 
 private slots:
-    void tempClicked();
+    void showClicked();
     void findClicked();
     void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
     void anotherRequest(QNetworkReply *reply);
