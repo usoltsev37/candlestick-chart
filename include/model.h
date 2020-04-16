@@ -15,6 +15,15 @@ public:
     std::string convert_to_std_string(QJsonValueRef arg) const;
     friend std::ostream &operator<<(std::ostream &out, const Model &model);
 
+    //временно влез, потом сделаю через контроллер
+    std::vector<std::string> get_bt();
+    std::vector<std::string> get_et();
+    std::vector<double> get_op();
+    std::vector<double> get_cl();
+    std::vector<double> get_hi();
+    std::vector<double> get_lo();
+    //извиняюсь)
+
 private:
     size_t size_of_data;
     size_t current_line_number = 0;

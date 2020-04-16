@@ -47,3 +47,10 @@ std::ostream &operator<<(std::ostream &out, const Model &model) {
     out << "--------------------------------------------------\n";
     return out;
 }
+
+std::vector<std::string> Model::get_bt(){ return begin_time;}
+std::vector<std::string> Model::get_et(){ return end_time;}
+std::vector<double> Model::get_op(){ return open;}
+std::vector<double> Model::get_cl(){ return close;}
+std::vector<double> Model::get_hi(){ return high;}
+std::vector<double> Model::get_lo(){ return low;}
