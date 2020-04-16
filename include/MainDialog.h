@@ -2,47 +2,51 @@
 #define PROJECT_ANDLESTICK_HART_MAINDIALOG_H
 
 #include <QDialog>
+#include <string>
+#include <iostream>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QComboBox>
-#include <QtGui>
-#include <QLabel>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QDateTimeEdit>
 #include "model.h"
-#include "load.h"
+#include "chartwindow.h"
+
+class QLabel;
+
+class QLineEdit;
+
+class QPushButton;
+
+class QDateTimeEdit;
 
 class MainDialog : public QDialog {
     Q_OBJECT
 public:
-    MainDialog(QWidget *parent = 0);
+    MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent = 0);
 
 private slots:
-    void showClicked();
+    void tempClicked();
     void findClicked();
     void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
     void anotherRequest(QNetworkReply *reply);
-    void enableShowButton(const QString &text);
+    void enableFindButton(const QString &text);
 
 private:
     Model mm;
-    load loader;
+    chartwindow *chwi;//добавил
     QNetworkAccessManager *manager;
     QNetworkRequest request;
-    QString company_;
+    QString &company_;
     std::string company = "";
-    QLabel *labelInstrumentName_;
+    QLabel *labelCompanyName_;
+    QLineEdit *CompanyName_;
     QPushButton *graphButton_;
-    QPushButton *showButton_;
+    QPushButton *TEMP_;
     QLabel *labelDateFrom_;
     QLabel *labelDateTo_;
     QDateTimeEdit *dateFrom_;
     QDateTimeEdit *dateTo_;
-    QComboBox *comboBox;
 };
 
 #endif //PROJECT_ANDLESTICK_HART_MAINDIALOG_H
