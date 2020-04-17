@@ -12,7 +12,6 @@ include_directories("include/")
 
 add_executable(Project_candlestick_chart
         src/main.cpp
-        src/controller.cpp
         src/load.cpp
         src/model.cpp
         src/view.cpp
@@ -21,7 +20,6 @@ add_executable(Project_candlestick_chart
         src/themewindow.cpp
         src/styleset.cpp
 
-        include/controller.h
         include/load.h
         include/model.h
         include/view.h
@@ -36,9 +34,6 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Charts REQUIRED)
 find_package(Qt5Network REQUIRED)
-
-set(SOURCE_FILES src/main.cpp include/MainDialog.h)
-add_executable(HelloWorld ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core)
 target_link_libraries(${PROJECT_NAME} Qt5::Gui)
