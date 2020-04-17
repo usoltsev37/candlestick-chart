@@ -5,6 +5,8 @@
 #include <string>
 #include <QUrl>
 #include <QDateTimeEdit>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 #include <iostream>
 
 enum RequestType {
@@ -22,9 +24,9 @@ public:
     void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo);
     QUrl get_url();
     void do_request();
-//    void set_finish_load(bool value);
-//    bool get_finish_load();
     bool finish_load;
+    QNetworkAccessManager *manager;
+    QNetworkRequest request;
 private:
     QUrl url;
     std::size_t start = 0;

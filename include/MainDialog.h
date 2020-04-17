@@ -35,8 +35,6 @@ private:
     Model mm;
     chartwindow *chwi;//добавил
     load loader;
-    QNetworkAccessManager *manager;
-    QNetworkRequest request;
     QString company_;
     std::string company = "";
     QLabel *labelInstrumentName_;

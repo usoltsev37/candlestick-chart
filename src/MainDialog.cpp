@@ -66,11 +66,11 @@ void MainDialog::showClicked() {
     cstr[s.size()] = '\0';
     std::cout << s << '\n';
     QUrl url = QUrl(cstr);
-    manager = new QNetworkAccessManager();
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
+    loader.manager = new QNetworkAccessManager();
+    QObject::connect(loader.manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(anotherRequest(QNetworkReply * )));
-    request.setUrl(url);
-    manager->get(request);
+    loader.request.setUrl(url);
+    loader.manager->get(loader.request);
 }
 
 
@@ -121,11 +121,11 @@ void MainDialog::fill_combobox() {
 }
 
 void MainDialog::make_request() {
-    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
+    loader.manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
+    QObject::connect(loader.manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(managerFinished(QNetworkReply * )));
     company = comboBox->currentText().toStdString();
     loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
-    request.setUrl(loader.get_url());
-    manager->get(request);
+    loader.request.setUrl(loader.get_url());
+    loader.manager->get(loader.request);
 }
