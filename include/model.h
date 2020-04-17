@@ -12,6 +12,10 @@ public:
     ~Model() = default;
 
     void set_fields(QJsonArray data_array, std::size_t type);
+
+    std::string get_future_name(int index);
+    std::size_t get_number_of_instruments();
+
     std::string convert_to_std_string(QJsonValueRef arg) const;
     friend std::ostream &operator<<(std::ostream &out, const Model &model);
 

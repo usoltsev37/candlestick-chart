@@ -14,6 +14,7 @@
 #include <QHBoxLayout>
 #include <QDateTimeEdit>
 #include "model.h"
+#include "load.h"
 #include "chartwindow.h"
 
 class MainDialog : public QDialog {
@@ -31,6 +32,7 @@ private slots:
 private:
     Model mm;
     chartwindow *chwi;//добавил
+    load loader;
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QString company_;

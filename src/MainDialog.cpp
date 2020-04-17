@@ -19,13 +19,6 @@ MainDialog::MainDialog(QWidget *parent)
     comboBox = new QComboBox;
     labelInstrumentName_ = new QLabel(tr("Instrument Name: "));
     labelInstrumentName_->setBuddy(comboBox);
-    std::vector<std::string> list_of_{"SIZ0", "YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // HARDCODE
-                                      "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
-
-    comboBox->addItem("-");
-    for (auto &future : list_of_) {
-        comboBox->addItem(QString::fromUtf8(future.c_str()));
-    }
 
     chwi = new chartwindow; //добавил
 
@@ -63,6 +56,19 @@ MainDialog::MainDialog(QWidget *parent)
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());
+    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
+                     this, SLOT(managerFinished(QNetworkReply * )));
+    company = comboBox->currentText().toStdString();
+    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
+    request.setUrl(loader.get_url());
+    manager->get(request);
+
+    std::vector<std::string> list_of_{"SIZ0", "YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // HARDCODE
+                                      "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
+
+
+
 }
 
 void MainDialog::showClicked() {
@@ -80,16 +86,7 @@ void MainDialog::showClicked() {
 }
 
 
-void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load,
-    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
-                     this, SLOT(managerFinished(QNetworkReply * )));
-    company = comboBox->currentText().toStdString();
-    load loader;
-    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
-    request.setUrl(loader.get_url());
-    manager->get(request);
-
+void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load
     //добавил
     chwi->fill(mm.get_bt(), mm.get_et(), mm.get_op(), mm.get_cl(), mm.get_hi(), mm.get_lo());
     chwi->show();
@@ -106,6 +103,11 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
     QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ALL_INSTRUMENTS);
+    comboBox->addItem("-");
+    std::size_t size = mm.get_number_of_instruments();
+    for (int i = 0; i < size; ++i) {
+        comboBox->addItem(QString::fromUtf8(mm.get_future_name(i).c_str()));
+    }
 }
 
 void MainDialog::anotherRequest(QNetworkReply *reply) {

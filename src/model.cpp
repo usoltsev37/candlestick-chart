@@ -17,10 +17,10 @@ void Model::set_fields(QJsonArray data_array, std::size_t type) {
         size_of_data = data_array.size();
         for (std::size_t i = 0; i < size_of_data; ++i) {
             QJsonArray current_array = data_array[i].toArray();
-            open.push_back(current_array[0].toDouble());
-            close.push_back(current_array[1].toDouble());
-            high.push_back(current_array[2].toDouble());
-            low.push_back(current_array[3].toDouble());
+            open.push_back(current_array[0].toDouble() / 1000);
+            close.push_back(current_array[1].toDouble() / 1000);
+            high.push_back(current_array[2].toDouble() / 1000);
+            low.push_back(current_array[3].toDouble() / 1000);
             begin_time.push_back(convert_to_std_string(current_array[6]));
             end_time.push_back(convert_to_std_string(current_array[7]));
         }
@@ -54,3 +54,11 @@ std::vector<double> Model::get_op(){ return open;}
 std::vector<double> Model::get_cl(){ return close;}
 std::vector<double> Model::get_hi(){ return high;}
 std::vector<double> Model::get_lo(){ return low;}
+
+std::string Model::get_future_name(int index) {
+    return list_of_futures[index];
+}
+
+std::size_t Model::get_number_of_instruments() {
+    return number_of_instruments;
+}
