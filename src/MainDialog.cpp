@@ -90,7 +90,7 @@ void MainDialog::findClicked() { // Влад: findClicked + managerFinished вы
     manager->get(request);
 
     //добавил
-    chwi->fill(mm.get_bt(), mm.get_et(), mm.get_op(), mm.get_cl(), mm.get_hi(), mm.get_lo());
+    chwi->fill(mm);
     chwi->show();
 }
 

@@ -18,7 +18,7 @@ chartwindow::chartwindow(QWidget *parent) :
     ui(new Ui::chartwindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Графики");
+    this->setWindowTitle(tr("Charts"));
     setMinimumSize(800,600);
     setMaximumSize(800,600);
 
@@ -42,16 +42,12 @@ chartwindow::~chartwindow()
     delete ui;
 }
 
-void chartwindow::fill(std::vector<std::string> bt, std::vector<std::string> et, std::vector<double> op, std::vector<double> cl, std::vector<double> hi, std::vector<double> lo){
-    begin_time = bt;
-    end_time = et;
-    open = op;
-    closse = cl;
-    high = hi;
-    low = lo;
+void chartwindow::fill(Model &model){
+    for(std::size_t i = 0; i < model.get_size(); i++)
+        data[i] = model.get_data_byIndex(i);
 
     QtCharts::QCandlestickSeries *acmeSeries = new QtCharts::QCandlestickSeries();
-    acmeSeries->setName("Свечи");
+    acmeSeries->setName(tr("Candles"));
     acmeSeries->setIncreasingColor(QColor(Qt::green));
     acmeSeries->setDecreasingColor(QColor(Qt::red));
 

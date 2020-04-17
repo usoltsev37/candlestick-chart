@@ -51,3 +51,7 @@ std::ostream &operator<<(std::ostream &out, const Model &model) {
 ModelData Model::get_data_byIndex(std::size_t index) const {
     return data_[index];
 }
+
+std::size_t Model::get_size() const {
+    return data_.size();
+}

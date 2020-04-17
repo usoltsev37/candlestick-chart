@@ -30,6 +30,8 @@ public:
 
     ModelData get_data_byIndex(std::size_t index) const;
 
+    std::size_t get_size() const;
+
 private:
     std::vector<ModelData> data_;
     std::size_t data_sz_;

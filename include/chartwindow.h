@@ -63,13 +63,9 @@ public:
     std::vector<double> closse;
     std::vector<double> high;
     std::vector<double> low;
-    void fill(std::vector<std::string> bt,
-              std::vector<std::string> et,
-              std::vector<double> op,
-              std::vector<double> cl,
-              std::vector<double> hi,
-              std::vector<double> lo
-              );
+
+    std::vector<ModelData> data; // это дожно быть private ->data_
+    void fill(Model &model);
 
 private slots:
     // Слоты от кнопок главного окна
