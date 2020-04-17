@@ -1,23 +1,12 @@
 #include "MainDialog.h"
-#include "load.h"
 
-#include <QtGui>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QDateTimeEdit>
-
-MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo, QWidget *parent)
-        : company_(company), dateFrom_(dateFrom), dateTo_(dateTo), QDialog(parent) {
-    labelCompanyName_ = new QLabel(tr("Company: "));
-    CompanyName_ = new QLineEdit;
-    labelCompanyName_->setBuddy(CompanyName_);
-    graphButton_ = new QPushButton("&Draw");
-    graphButton_->setDefault(false);
+MainDialog::MainDialog(QWidget *parent)
+        : QDialog(parent) {
+    graphButton_ = new QPushButton(tr("&Draw"));
     graphButton_->setEnabled(true);
-    TEMP_ = new QPushButton("&TEMP");
-    TEMP_->setEnabled(true);
+    showButton_ = new QPushButton(tr("&SHOW"));
+    showButton_->setDefault(true);
+    showButton_->setEnabled(false);
     labelDateFrom_ = new QLabel(tr("Date From: "));
     labelDateTo_ = new QLabel(tr("Date To: "));
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01));
@@ -28,20 +17,28 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     dateFrom_->setDisplayFormat("yyyy.MM.dd");
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
+    comboBox = new QComboBox;
+    labelInstrumentName_ = new QLabel(tr("Instrument Name: "));
+    labelInstrumentName_->setBuddy(comboBox);
+    std::vector<std::string> list_of_{"SIZ0", "YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // HARDCODE
+                                      "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
+
+    comboBox->addItem("-");
+    for(auto & future : list_of_) {
+        comboBox->addItem(QString::fromUtf8(future.c_str()));
+    }
     //добавил
     chwi = new chartwindow;
 
-    connect(CompanyName_, SIGNAL(textChanged(
-                                         const QString &)),
-            this, SLOT(enableFindButton(
-                               const QString &)));
+    connect(comboBox, SIGNAL(currentIndexChanged(const QString &)),
+            this, SLOT(enableShowButton(const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
-    connect(TEMP_, SIGNAL(clicked()), this, SLOT(tempClicked()));
+    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
     // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
-    topLeftLayout->addWidget(labelCompanyName_);
-    topLeftLayout->addWidget(CompanyName_);
+    topLeftLayout->addWidget(labelInstrumentName_);
+    topLeftLayout->addWidget(comboBox);
 
     QHBoxLayout *midLeftLayout = new QHBoxLayout;
     midLeftLayout->addWidget(labelDateFrom_);
@@ -49,7 +46,6 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     QHBoxLayout *bottomLeftLayout = new QHBoxLayout;
     bottomLeftLayout->addWidget(labelDateTo_);
     bottomLeftLayout->addWidget(dateTo_);
-    //bottomLeftLayout->addStretch();                  // растяжка вниз
 
     QVBoxLayout *leftLayout = new QVBoxLayout;
     leftLayout->addLayout(topLeftLayout);
@@ -58,7 +54,7 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
 
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(graphButton_);
-    rightLayout->addWidget(TEMP_);
+    rightLayout->addWidget(showButton_);
     rightLayout->addStretch();
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addLayout(leftLayout);
@@ -66,10 +62,10 @@ MainDialog::MainDialog(QString &company, QDateTimeEdit *dateFrom, QDateTimeEdit 
     setLayout(mainLayout);
 
     setWindowTitle(tr("Сandlestick Сhart"));
-    setFixedHeight(sizeHint().height());    // фиксирует высоту
+    setFixedHeight(sizeHint().height());
 }
 
-void MainDialog::tempClicked() {
+void MainDialog::showClicked() {
     std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiZ0/candles.json";
     char cstr[s.size() + 1];
     s.copy(cstr, s.size() + 1);
@@ -84,12 +80,11 @@ void MainDialog::tempClicked() {
 }
 
 
-void MainDialog::findClicked() {
-    manager = new QNetworkAccessManager();
+void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load,
+    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
                      this, SLOT(managerFinished(QNetworkReply*)));
-    QString text = CompanyName_->text();
-    company = CompanyName_->text().toStdString();
+    company = comboBox->currentText().toStdString();
     load loader;
     loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
     request.setUrl(loader.get_url());
@@ -128,7 +123,7 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
     //in
 }
 
-void MainDialog::enableFindButton(const QString &text) {
-    graphButton_->setEnabled(!text.isEmpty()); // сделать так, чтобы graph не работал при пустом периоде
+void MainDialog::enableShowButton(const QString &text) {
+    showButton_->setEnabled(text != "-");
     // TODO период никогда не был пустым
 }
