@@ -13,7 +13,6 @@ MainDialog::MainDialog(QWidget *parent)
     dateTo_ = new QDateTimeEdit(QDate::currentDate());
     dateTo_->setMaximumDate(QDate::currentDate());
     dateTo_->setMinimumDate(dateFrom_->date());
-    // dateFrom->setMaximumDate(dateTo->date());
     dateFrom_->setDisplayFormat("yyyy.MM.dd");
     dateTo_->setDisplayFormat("yyyy.MM.dd");
 
@@ -24,17 +23,18 @@ MainDialog::MainDialog(QWidget *parent)
                                       "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
 
     comboBox->addItem("-");
-    for(auto & future : list_of_) {
+    for (auto &future : list_of_) {
         comboBox->addItem(QString::fromUtf8(future.c_str()));
     }
-    //добавил
-    chwi = new chartwindow;
 
-    connect(comboBox, SIGNAL(currentIndexChanged(const QString &)),
-            this, SLOT(enableShowButton(const QString &)));
+    chwi = new chartwindow; //добавил
+
+    connect(comboBox, SIGNAL(currentIndexChanged(
+                                     const QString &)),
+            this, SLOT(enableShowButton(
+                               const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
     connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
-    // добавь здесь connect к слоту, которому ты хотел подключить
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(labelInstrumentName_);
@@ -73,8 +73,8 @@ void MainDialog::showClicked() {
     std::cout << s << '\n';
     QUrl url = QUrl(cstr);
     manager = new QNetworkAccessManager();
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
-                     this, SLOT(anotherRequest(QNetworkReply*)));
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
+                     this, SLOT(anotherRequest(QNetworkReply * )));
     request.setUrl(url);
     manager->get(request);
 }
@@ -82,8 +82,8 @@ void MainDialog::showClicked() {
 
 void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load,
     manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
-                     this, SLOT(managerFinished(QNetworkReply*)));
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
+                     this, SLOT(managerFinished(QNetworkReply * )));
     company = comboBox->currentText().toStdString();
     load loader;
     loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
@@ -118,12 +118,10 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("candles");
     QJsonArray dataObj = value.toObject().value("data").toArray();
-    mm.set_fields(dataObj, ONE_INSTRUMENT);    
+    mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
-    //in
 }
 
 void MainDialog::enableShowButton(const QString &text) {
     showButton_->setEnabled(text != "-");
-    // TODO период никогда не был пустым
 }
