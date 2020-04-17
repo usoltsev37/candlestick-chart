@@ -17,15 +17,19 @@
 #include "chartwindow.h"
 
 class MainDialog : public QDialog {
-    Q_OBJECT
+Q_OBJECT
 public:
     MainDialog(QWidget *parent = 0);
 
 private slots:
+
     void showClicked();
+
     void findClicked();
+
     void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
     void anotherRequest(QNetworkReply *reply);
+
     void enableShowButton(const QString &text);
 
 private:
@@ -33,8 +37,6 @@ private:
     chartwindow *chwi;//добавил
     QNetworkAccessManager *manager;
     QNetworkRequest request;
-    QString company_;
-    std::string company = "";
     QLabel *labelInstrumentName_;
     QPushButton *graphButton_;
     QPushButton *showButton_;
