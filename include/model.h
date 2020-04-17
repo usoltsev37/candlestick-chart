@@ -6,6 +6,18 @@
 #include <QJsonArray>
 #include <vector>
 
+namespace ModelData {
+    class Data {
+    public:
+        std::vector<std::string> begin_time;
+        std::vector<std::string> end_time;
+        std::vector<double> open;
+        std::vector<double> close;
+        std::vector<double> high;
+        std::vector<double> low;
+    };
+} // ModelData
+
 class Model {
 public:
     Model() = default;
@@ -25,15 +37,10 @@ public:
     //извиняюсь)
 
 private:
-    size_t size_of_data;
-    size_t current_line_number = 0;
-    std::vector<std::string> begin_time;
-    std::vector<std::string> end_time;
-    std::vector<double> open;
-    std::vector<double> close;
-    std::vector<double> high;
-    std::vector<double> low;
-    size_t number_of_instruments;
+    ModelData::Data data;
+    std::size_t size_of_data;
+    std::size_t current_line_number = 0;
+    std::size_t number_of_instruments;
     std::vector<std::string> list_of_futures;
 };
 

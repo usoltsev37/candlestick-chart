@@ -84,7 +84,6 @@ void MainDialog::findClicked() { // Влад: findClicked + managerFinished вы
     manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(managerFinished(QNetworkReply * )));
-    company = comboBox->currentText().toStdString();
     load loader;
     loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
     request.setUrl(loader.get_url());
