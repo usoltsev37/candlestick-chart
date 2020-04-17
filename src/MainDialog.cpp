@@ -56,19 +56,7 @@ MainDialog::MainDialog(QWidget *parent)
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());
-    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
-                     this, SLOT(managerFinished(QNetworkReply * )));
-    company = comboBox->currentText().toStdString();
-    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
-    request.setUrl(loader.get_url());
-    manager->get(request);
-
-    std::vector<std::string> list_of_{"SIZ0", "YNDX", "ABRD", "JETBAINS", "GOOGLE", "MAILRU", // HARDCODE
-                                      "SBERBANK", "TINKOFF", "VTB", "HSE", "MSU"};
-
-
-
+    make_request();
 }
 
 void MainDialog::showClicked() {
@@ -103,11 +91,7 @@ void MainDialog::managerFinished(QNetworkReply *reply) {
     QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ALL_INSTRUMENTS);
-    comboBox->addItem("-");
-    std::size_t size = mm.get_number_of_instruments();
-    for (int i = 0; i < size; ++i) {
-        comboBox->addItem(QString::fromUtf8(mm.get_future_name(i).c_str()));
-    }
+    fill_combobox();
 }
 
 void MainDialog::anotherRequest(QNetworkReply *reply) {
@@ -126,4 +110,22 @@ void MainDialog::anotherRequest(QNetworkReply *reply) {
 
 void MainDialog::enableShowButton(const QString &text) {
     showButton_->setEnabled(text != "-");
+}
+
+void MainDialog::fill_combobox() {
+    comboBox->addItem("-");
+    std::size_t size = mm.get_number_of_instruments();
+    for (int i = 0; i < size; ++i) {
+        comboBox->addItem(QString::fromUtf8(mm.get_future_name(i).c_str()));
+    }
+}
+
+void MainDialog::make_request() {
+    manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
+                     this, SLOT(managerFinished(QNetworkReply * )));
+    company = comboBox->currentText().toStdString();
+    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
+    request.setUrl(loader.get_url());
+    manager->get(request);
 }

@@ -21,6 +21,8 @@ class MainDialog : public QDialog {
     Q_OBJECT
 public:
     MainDialog(QWidget *parent = 0);
+    void fill_combobox();
+    void make_request(); // move to load.h / load.cpp
 
 private slots:
     void showClicked();
