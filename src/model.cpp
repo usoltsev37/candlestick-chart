@@ -1,29 +1,30 @@
 #include "model.h"
 #include <iostream>
 
-void Model::set_fields(QJsonArray data_array, std::size_t type) {
+void Model::set_fields(QJsonArray &data_array, std::size_t type) {
     if (data_array.empty()) {
         std::cout << "\nDataArraySize\n";
     } else if (type == ALL_INSTRUMENTS) {
-        number_of_instruments = data_array.size();
-        for (std::size_t i = 0; i < number_of_instruments; i++) {
-            list_of_futures.push_back(convert_to_std_string(data_array[i].toArray()[0]));
+        instruments_num_ = data_array.size();
+        for (std::size_t i = 0; i < instruments_num_; i++) {
+            futures_list_.push_back(convert_to_std_string(data_array[i].toArray()[0]));
         }
         std::cout << "All instrument request done\n";
     } else if (type == ONE_INSTRUMENT) {
-        size_of_data = data_array.size();
-        for (std::size_t i = 0; i < size_of_data; i++) {
-            QJsonArray current_array = data_array[i].toArray();
-            data.open.push_back(current_array[0].toDouble());
-            data.open.push_back(current_array[0].toDouble());
-            data.close.push_back(current_array[1].toDouble());
-            data.high.push_back(current_array[2].toDouble());
-            data.low.push_back(current_array[3].toDouble());
-            data.begin_time.push_back(convert_to_std_string(current_array[6]));
-            data.end_time.push_back(convert_to_std_string(current_array[7]));
+        data_sz_ = data_array.size();
+        for (std::size_t i = 0; i < data_sz_; i++) {
+            QJsonArray array = data_array[i].toArray();
+            ModelData current_data;
+            current_data.open = array[0].toDouble();
+            current_data.close = array[1].toDouble();
+            current_data.high = array[2].toDouble();
+            current_data.low = array[3].toDouble();
+            current_data.begin_time = convert_to_std_string(array[6]);
+            current_data.end_time = convert_to_std_string(array[7]);
+            data_.push_back(current_data);
         }
-        current_line_number += size_of_data;
-        std::cout << "One instrument request done: current_line_number = " << current_line_number << "\n";
+        current_line_number_ += data_sz_;
+        std::cout << "One instrument request done: current_line_number = " << current_line_number_ << "\n";
     } else {
         std::cout << "Unknown type of request\n";
     }
@@ -36,25 +37,17 @@ std::string Model::convert_to_std_string(QJsonValueRef arg) const {
 
 std::ostream &operator<<(std::ostream &out, const Model &model) {
     out << "Start:\n";
-    for (std::size_t i = 0; i < model.current_line_number; i++) {
-        out << i << ": " << model.data.begin_time[i] << '\n'
-            << "open = " << model.data.open[i]
-            << "; low = " << model.data.low[i]
-            << "; high = " << model.data.high[i]
-            << "; close = " << model.data.close[i] << '\n';
+    for (std::size_t i = 0; i < model.current_line_number_; i++) {
+        out << i << ": " << model.data_[i].begin_time << '\n'
+            << "open = " << model.data_[i].open
+            << "; low = " << model.data_[i].low
+            << "; high = " << model.data_[i].high
+            << "; close = " << model.data_[i].close << '\n';
     }
     out << "--------------------------------------------------\n";
     return out;
 }
 
-std::vector<std::string> Model::get_bt() { return data.begin_time; }
-
-std::vector<std::string> Model::get_et() { return data.end_time; }
-
-std::vector<double> Model::get_op() { return data.open; }
-
-std::vector<double> Model::get_cl() { return data.close; }
-
-std::vector<double> Model::get_hi() { return data.high; }
-
-std::vector<double> Model::get_lo() { return data.low; }
+ModelData Model::get_data_byIndex(std::size_t index) const {
+    return data_[index];
+}
