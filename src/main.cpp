@@ -15,9 +15,6 @@ int main(int argc, char *argv[]) {
     MainDialog dialog;
     dialog.show();
 
-    //chartwindow tmp;
-    //tmp.show();
-
     return app.exec();
 }
 
