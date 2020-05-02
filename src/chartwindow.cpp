@@ -58,7 +58,7 @@ void chartwindow::fill(std::vector<std::string> bt, std::vector<std::string> et,
 
     //TODO заполнение
     QList<Candle> Candles; QStringList categories;
-    for (size_t i = 15; i < 60; ++i){// ha-ha nice hardcode
+    for (size_t i = 0; i < 18; ++i){// ha-ha nice hardcode
         assert(!open.empty());
         Candle tmp(open[i], high[i], low[i], closse[i], str_to_timestamp(begin_time[i]));
         categories << QString::fromStdString(begin_time[i]);

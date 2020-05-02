@@ -27,6 +27,7 @@ add_executable(Project_candlestick_chart
         include/chartwindow.h
         include/themewindow.h
         include/styleset.h
+        include/candlesFwd.h
 )
 
 find_package(Qt5Core REQUIRED)

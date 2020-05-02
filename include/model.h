@@ -1,7 +1,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "load.h"
+//#include "load.h"
 #include <string>
 #include <QJsonArray>
 #include <vector>
@@ -31,8 +31,6 @@ public:
 private:
     size_t size_of_data;
     size_t current_line_number = 0;
-    std::string short_name;
-    std::string secid;
     std::vector<std::string> begin_time;
     std::vector<std::string> end_time;
     std::vector<double> open;

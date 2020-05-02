@@ -1,13 +1,21 @@
 #ifndef LOAD_H
 #define LOAD_H
 
-#include "model.h"
+
 #include <string>
 #include <QUrl>
 #include <QDateTimeEdit>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QObject>
+#include <QJsonDocument>
 #include <iostream>
+#include <QtWidgets/QComboBox>
+#include "model.h"
+//#include "candlesFwd.h"
+//#include "MainDialog.h"
+
+//class Model;
 
 enum RequestType {
     ALL_INSTRUMENTS = 1,
@@ -16,17 +24,22 @@ enum RequestType {
 };
 
 
-class load {
+class load : public QObject {
+Q_OBJECT
 public:
     load() = default;
     std::string date_to_string(QDateTimeEdit* date);
     void set_url(std::string str);
     void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo);
     QUrl get_url();
-    void do_request();
-    bool finish_load;
+    void do_all_instrument_request();
+    void do_one_instrument_request();
     QNetworkAccessManager *manager;
     QNetworkRequest request;
+    Model mm;
+public slots:
+    void managerFinished(QNetworkReply *reply);
+    void anotherRequest(QNetworkReply *reply);
 private:
     QUrl url;
     std::size_t start = 0;

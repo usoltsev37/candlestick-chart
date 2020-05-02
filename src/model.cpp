@@ -1,6 +1,12 @@
 #include "model.h"
 #include <iostream>
 
+enum RequestType {
+    ALL_INSTRUMENTS = 1,
+    ONE_INSTRUMENT = 2,
+    INTERVALS = 3
+};
+
 void Model::set_fields(QJsonArray data_array, std::size_t type) {
     if (data_array.size() == 0) {
         std::cout << "\nDataArraySize\n"; // exceptions?

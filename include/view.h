@@ -12,7 +12,7 @@
 
 class view {
 public:
-    view(std::string chart_name, Model &model);
+//    view(std::string chart_name, Model &model);
 
     class Candlestick_Chart { // TODO make base class
     public:
@@ -39,7 +39,7 @@ public:
     };
 
 private:
-    Model model;
+//    Model model;
     std::string chart_title;
 };
 
