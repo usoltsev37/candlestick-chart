@@ -81,7 +81,8 @@ void load::anotherRequest(QNetworkReply *reply) {
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
-    timer->stop();
+    timer->start(1000);
+    std::cout << "Timer started, i hope actually...\n";
 }
 
 void load::foo() {

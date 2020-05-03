@@ -78,15 +78,13 @@ void MainDialog::findClicked() { // Влад: findClicked + managerFinished вы
     //добавил
     QTimer* tmr = new QTimer();
     loader.do_one_instrument_request(tmr);
-    connect(tmr, &QTimer::isActive, this, [this]() {
-       std::cout << "Time is okay\n";
+    loader.timer = tmr;
+    connect(tmr, &QTimer::timeout, this, [this]() {
+        chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
+            loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
+        chwi->show();
+        this->loader.timer->deleteLater();
     });
-//    QObject::connect(loader.timer, SIGNAL(timeout()),
-//    QTimer::singleShot(0, &loader, SLOT(one_instrument_request()));
-//    QObject::connect(loader.timer, SIGNAL(timeout()), SLOT(show_graph()));
-//    chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
-//            loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
-//    chwi->show();
 }
 
 //void MainDialog::anotherRequest(QNetworkReply *reply) {
