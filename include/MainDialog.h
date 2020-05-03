@@ -13,10 +13,8 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QDateTimeEdit>
-//#include "model.h"
 #include "load.h"
 #include "chartwindow.h"
-//#include "candlesFwd.h"
 
 class load;
 

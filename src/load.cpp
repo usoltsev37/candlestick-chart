@@ -1,4 +1,3 @@
-#include <QtCore/QJsonObject>
 #include "load.h"
 
 std::string load::date_to_string(QDateTimeEdit *date) {
@@ -32,6 +31,7 @@ void load::set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *date
 
 void load::do_all_instrument_request() {
     manager = new QNetworkAccessManager();
+
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(managerFinished(QNetworkReply * )));
 
@@ -65,11 +65,9 @@ void load::do_one_instrument_request(QTimer* timer) {
                      this, SLOT(anotherRequest(QNetworkReply *)));
     request.setUrl(url);
     manager->get(request);
-    std::cout << "here111\n";
 }
 
 void load::anotherRequest(QNetworkReply *reply) {
-    std::cout << "here2\n";
     if (reply->error()) {
         qDebug() << reply->errorString();
         reply->deleteLater();
@@ -82,10 +80,4 @@ void load::anotherRequest(QNetworkReply *reply) {
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
     timer->start(1000);
-    std::cout << "Timer started, i hope actually...\n";
-}
-
-void load::foo() {
-    std::cout << "Doing foo()\n";
-//    do_one_instrument_request();
 }

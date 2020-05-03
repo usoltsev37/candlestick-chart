@@ -8,6 +8,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QObject>
+#include <QtCore/QJsonObject>
 #include <QJsonDocument>
 #include <iostream>
 #include <QtWidgets/QComboBox>
@@ -42,7 +43,6 @@ public:
 public slots:
     void managerFinished(QNetworkReply *reply);
     void anotherRequest(QNetworkReply *reply);
-    void foo();
 private:
     QUrl url;
     std::size_t start = 0;

@@ -56,73 +56,25 @@ MainDialog::MainDialog(QWidget *parent)
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());
-    loader.do_all_instrument_request(); // TODO
+    loader.do_all_instrument_request();
 }
 
-//void MainDialog::showClicked() {
-//    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiU1/candles.json";
-//    char cstr[s.size() + 1];
-//    s.copy(cstr, s.size() + 1);
-//    cstr[s.size()] = '\0';
-//    std::cout << s << '\n';
-//    QUrl url = QUrl(cstr);
-//    loader.manager = new QNetworkAccessManager();
-//    QObject::connect(loader.manager, SIGNAL(finished(QNetworkReply * )),
-//                     this, SLOT(anotherRequest(QNetworkReply * )));
-//    loader.request.setUrl(url);
-//    loader.manager->get(loader.request);
-//}
-
-
-void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load
-    //добавил
+void MainDialog::findClicked() {
     QTimer* tmr = new QTimer();
     loader.do_one_instrument_request(tmr);
     loader.timer = tmr;
     connect(tmr, &QTimer::timeout, this, [this]() {
-        chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
-            loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
-        chwi->show();
+        show_graph();
         this->loader.timer->deleteLater();
     });
 }
-
-//void MainDialog::anotherRequest(QNetworkReply *reply) {
-//    if (reply->error()) {
-//        qDebug() << reply->errorString();
-//        reply->deleteLater();
-//        return;
-//    }
-//    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-//    QJsonObject jsonObj = document.object();
-//    QJsonValue value = jsonObj.value("candles");
-//    QJsonArray dataObj = value.toObject().value("data").toArray();
-//    loader.mm.set_fields(dataObj, ONE_INSTRUMENT);
-//    std::cout << loader.mm;
-//}
 
 void MainDialog::enableShowButton(const QString &text) {
     showButton_->setEnabled(text != "-");
 }
 
 void MainDialog::show_graph() {
-    std::cout << "I WAS HERE AT LEAST\n";
     chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
             loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
     chwi->show();
 }
-
-//void MainDialog::slotTimerAlarm() {
-//
-//}
-
-
-//void MainDialog::make_request() {
-//    loader.manager = new QNetworkAccessManager(); // чтобы из констктора можно было сразу заполнять массив list_of_futures
-//    QObject::connect(loader.manager, SIGNAL(finished(QNetworkReply * )),
-//                     this, SLOT(managerFinished(QNetworkReply * )));
-//    company = comboBox->currentText().toStdString();
-//    loader.set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
-//    loader.request.setUrl(loader.get_url());
-//    loader.manager->get(loader.request);
-//}
