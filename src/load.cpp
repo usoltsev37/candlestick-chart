@@ -53,7 +53,7 @@ void load::managerFinished(QNetworkReply *reply) {
     mm.set_fields(dataObj, ALL_INSTRUMENTS);
 }
 
-void load::do_one_instrument_request() {
+void load::do_one_instrument_request(QTimer* timer) {
     std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiU1/candles.json";
     char cstr[s.size() + 1];
     s.copy(cstr, s.size() + 1);
@@ -62,12 +62,14 @@ void load::do_one_instrument_request() {
     QUrl url = QUrl(cstr);
     manager = new QNetworkAccessManager();
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
-                     this, SLOT(anotherRequest(QNetworkReply * )));
+                     this, SLOT(anotherRequest(QNetworkReply *)));
     request.setUrl(url);
     manager->get(request);
+    std::cout << "here111\n";
 }
 
 void load::anotherRequest(QNetworkReply *reply) {
+    std::cout << "here2\n";
     if (reply->error()) {
         qDebug() << reply->errorString();
         reply->deleteLater();
@@ -79,4 +81,10 @@ void load::anotherRequest(QNetworkReply *reply) {
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
+    timer->stop();
+}
+
+void load::foo() {
+    std::cout << "Doing foo()\n";
+//    do_one_instrument_request();
 }

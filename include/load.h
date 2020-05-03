@@ -11,6 +11,7 @@
 #include <QJsonDocument>
 #include <iostream>
 #include <QtWidgets/QComboBox>
+#include <QTimer>
 #include "model.h"
 //#include "candlesFwd.h"
 //#include "MainDialog.h"
@@ -33,13 +34,15 @@ public:
     void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo);
     QUrl get_url();
     void do_all_instrument_request();
-    void do_one_instrument_request();
+    void do_one_instrument_request(QTimer* timer);
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     Model mm;
+    QTimer *timer;
 public slots:
     void managerFinished(QNetworkReply *reply);
     void anotherRequest(QNetworkReply *reply);
+    void foo();
 private:
     QUrl url;
     std::size_t start = 0;

@@ -27,7 +27,7 @@ MainDialog::MainDialog(QWidget *parent)
             this, SLOT(enableShowButton(
                                const QString &)));
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
-    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
+//    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(labelInstrumentName_);
@@ -76,7 +76,14 @@ MainDialog::MainDialog(QWidget *parent)
 
 void MainDialog::findClicked() { // Влад: findClicked + managerFinished вынести в отдельный метод в load
     //добавил
-    loader.do_one_instrument_request();
+    QTimer* tmr = new QTimer();
+    loader.do_one_instrument_request(tmr);
+    connect(tmr, &QTimer::isActive, this, [this]() {
+       std::cout << "Time is okay\n";
+    });
+//    QObject::connect(loader.timer, SIGNAL(timeout()),
+//    QTimer::singleShot(0, &loader, SLOT(one_instrument_request()));
+//    QObject::connect(loader.timer, SIGNAL(timeout()), SLOT(show_graph()));
 //    chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
 //            loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
 //    chwi->show();
@@ -100,9 +107,16 @@ void MainDialog::enableShowButton(const QString &text) {
     showButton_->setEnabled(text != "-");
 }
 
-void MainDialog::slotTimerAlarm() {
-
+void MainDialog::show_graph() {
+    std::cout << "I WAS HERE AT LEAST\n";
+    chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
+            loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
+    chwi->show();
 }
+
+//void MainDialog::slotTimerAlarm() {
+//
+//}
 
 
 //void MainDialog::make_request() {

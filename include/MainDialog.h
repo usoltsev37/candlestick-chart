@@ -27,7 +27,7 @@ public:
 
 private slots:
     void findClicked();
-    void slotTimerAlarm();
+    void show_graph();
     void enableShowButton(const QString &text);
 
 private:
@@ -43,7 +43,6 @@ private:
     QDateTimeEdit *dateFrom_;
     QDateTimeEdit *dateTo_;
     QComboBox *comboBox;
-    QTimer *timer;
 };
 
 #endif //PROJECT_ANDLESTICK_HART_MAINDIALOG_H
