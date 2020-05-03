@@ -1,4 +1,11 @@
 CMakeCached.txt
 /cmake-build-debug
+/CMakeFiles
+.DS_Store
+.idea/
+Project_candlestick_chart
+Project_candlestick_chart.cbp
+/Project_candlestick_chart_autogen/
+CMakeCache.txt
 cmake_install.cmake
 

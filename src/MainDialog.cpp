@@ -67,7 +67,6 @@ void MainDialog::findClicked() {
         show_graph();
         this->loader.timer->deleteLater();
     });
-}
 
 void MainDialog::enableShowButton(const QString &text) {
     showButton_->setEnabled(text != "-");

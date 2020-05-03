@@ -19,7 +19,7 @@
 class load;
 
 class MainDialog : public QDialog {
-    Q_OBJECT
+Q_OBJECT
 public:
     MainDialog(QWidget *parent = 0);
 
@@ -27,7 +27,7 @@ private slots:
     void findClicked();
     void show_graph();
     void enableShowButton(const QString &text);
-
+  
 private:
     chartwindow *chwi; //добавил
     load loader;
