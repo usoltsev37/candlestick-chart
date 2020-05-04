@@ -28,6 +28,9 @@ private slots:
     void enableShowButton(const QString &text);
   
 private:
+
+    void set_QHBox();
+
     chartwindow *chwi; //добавил
     load loader;
     QString company_;

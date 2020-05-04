@@ -36,6 +36,16 @@ MainDialog::MainDialog(QWidget *parent)
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
 //    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
 
+    chwi = new chartwindow(); // TODO add this
+
+    set_QHBox();
+
+    setWindowTitle(tr("Сandlestick Сhart"));
+    setFixedHeight(sizeHint().height());
+    loader.do_all_instrument_request();
+}
+
+void MainDialog::set_QHBox() {
     QHBoxLayout *topLeftLayout = new QHBoxLayout();
     topLeftLayout->addWidget(labelInstrumentName_);
     topLeftLayout->addWidget(comboBox);
@@ -59,13 +69,8 @@ MainDialog::MainDialog(QWidget *parent)
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
+    //mainLayout->addWidget(chwi); //TODO NIKITA
     setLayout(mainLayout);
-
-    setWindowTitle(tr("Сandlestick Сhart"));
-    setFixedHeight(sizeHint().height());
-    loader.do_all_instrument_request();
-
-    chwi = new chartwindow(); // TODO add this
 }
 
 void MainDialog::findClicked() {
