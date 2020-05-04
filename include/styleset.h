@@ -3,21 +3,32 @@
 
 class QString;
 
-class styleset {
-public:
-    static QString getWindowStyleSheet();
-    static QString getLabelStyleSheet();
-    static QString getCloseStyleSheet();
-    static QString getMaximizeStyleSheet();
-    static QString getRestoreStyleSheet();
-    static QString getMinimizeStyleSheet();
-    static QString getNextStyleSheet();
-    static QString getPreviousStyleSheet();
-    static QString getStopStyleSheet();
-    static QString getPlayStyleSheet();
-    static QString getPauseStyleSheet();
-    static QString getMenuStyleSheet();
-    static QString getTableViewStyleSheet();
-};
+namespace styleset {
+    QString getWindowStyleSheet();
+
+    QString getLabelStyleSheet();
+
+    QString getCloseStyleSheet();
+
+    QString getMaximizeStyleSheet();
+
+    QString getRestoreStyleSheet();
+
+    QString getMinimizeStyleSheet();
+
+    QString getNextStyleSheet();
+
+    QString getPreviousStyleSheet();
+
+    QString getStopStyleSheet();
+
+    QString getPlayStyleSheet();
+
+    QString getPauseStyleSheet();
+
+    QString getMenuStyleSheet();
+
+    QString getTableViewStyleSheet();
+} //styleset
 
 #endif // STYLESET_H
