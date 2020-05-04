@@ -4,8 +4,46 @@
 #include <QStyleFactory>
 #include "styleset.h"
 #include <assert.h>
+#include <iostream>
 
-//пока так, потом раскидаю по методам в view
+//копия аналогичной функции из класса chartwindow, наверное, стоит сделать её глобальной
+double  DataGrouping::str_to_timestamp(std::string date){
+    QDateTime tmp_date_time = QDateTime::fromString(QString::fromStdString(date), "yyyy-MM-dd hh:mm:ss");
+    double timestamp = tmp_date_time.toTime_t();
+    return  timestamp;
+}
+
+void DataGrouping::compress_by_n_days(){
+    for(size_t i = 1; i < candle_vec.size(); ){
+        tmp_open = candle_vec[i-1].open;
+        double lowest = candle_vec[i-1].low;
+        double highest = candle_vec[i-1].high;
+
+        while(unix_time_cnt < 86400*number_of_days){ //unix время в секундах, в дне 86400 секунд
+            if(i >= candle_vec.size()) break;
+            if(lowest > candle_vec[i].low)
+                                            lowest = candle_vec[i].low;
+            if(highest < candle_vec[i].high)
+                                            highest = candle_vec[i].high;
+
+                if(unix_time_cnt + str_to_timestamp(candle_vec[i].begin_time)
+                        - str_to_timestamp(candle_vec[i-1].end_time) >= 86400*number_of_days)//предвидим закрытие
+            tmp_close = candle_vec[i].close;
+
+            unix_time_cnt = unix_time_cnt + str_to_timestamp(candle_vec[i].begin_time) - str_to_timestamp(candle_vec[i-1].end_time);
+
+            i++;
+        }
+
+        Candle day_n_candle(tmp_open, highest, lowest,
+                            tmp_close, str_to_timestamp(candle_vec[i].begin_time));
+
+        result.push_back(day_n_candle);
+        unix_time_cnt = 0;
+    }
+
+}
+
 
 double  chartwindow::str_to_timestamp(std::string date){
     QDateTime tmp_date_time = QDateTime::fromString(QString::fromStdString(date), "yyyy-MM-dd hh:mm:ss");
@@ -42,23 +80,34 @@ chartwindow::~chartwindow()
     delete ui;
 }
 
-void chartwindow::fill(Model &model){
-    for(std::size_t i = 0; i < model.get_size(); i++)
-        data[i] = model.get_data_byIndex(i);
+void chartwindow::fill(Model model){
 
     QtCharts::QCandlestickSeries *acmeSeries = new QtCharts::QCandlestickSeries();
     acmeSeries->setName(tr("Candles"));
     acmeSeries->setIncreasingColor(QColor(Qt::green));
     acmeSeries->setDecreasingColor(QColor(Qt::red));
 
+    const size_t size_of_data = model.get_size();
+    ModelData tmp;
+    for(std::size_t i = 0; i < size_of_data - 1; i++){
+            tmp.low = model.get_data_byIndex(i).low;
+            tmp.high = model.get_data_byIndex(i).high;
+            tmp.open = model.get_data_byIndex(i).open;
+            tmp.close = model.get_data_byIndex(i).close;
+            tmp.end_time = model.get_data_byIndex(i).end_time;
+            tmp.begin_time = model.get_data_byIndex(i).begin_time;
+            data.push_back(tmp);
+    }
 
-    //TODO заполнение
-    QList<Candle> Candles; QStringList categories;
-    for (size_t i = 0; i < 18; ++i){// ha-ha nice hardcode
-        assert(!open.empty());
-        Candle tmp(open[i], high[i], low[i], closse[i], str_to_timestamp(begin_time[i]));
-        categories << QString::fromStdString(begin_time[i]);
-        acmeSeries->append(tmp.candlestickSet);
+    DataGrouping* convey = new DataGrouping(data, 2);//2 -- параметр группировки, должен быть не константным
+    convey->compress_by_n_days();
+    QStringList categories;
+
+    for (auto candle : convey->result){
+            const QDateTime dt = QDateTime::fromTime_t(candle.timestamp);
+            const QString textdate = dt.toString(Qt::TextDate);
+            categories << textdate;
+            acmeSeries->append(candle.candlestickSet);
     }
 
     acmeSeries->setBodyOutlineVisible(true);
@@ -68,7 +117,7 @@ void chartwindow::fill(Model &model){
     chart->setTitle(" ");
     chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
     QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
-    axis->append(categories);
+    //axis->append(categories);
     chart->createDefaultAxes();
     chart->setAxisX(axis, acmeSeries);
     chart->legend()->setVisible(true);

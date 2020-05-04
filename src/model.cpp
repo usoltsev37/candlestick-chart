@@ -56,21 +56,22 @@ std::ostream &operator<<(std::ostream &out, const Model &model) {
 }
 
 
-std::vector<std::string> Model::get_bt(){ return begin_time;}
-std::vector<std::string> Model::get_et(){ return end_time;}
-std::vector<double> Model::get_op(){ return open;}
-std::vector<double> Model::get_cl(){ return close;}
-std::vector<double> Model::get_hi(){ return high;}
-std::vector<double> Model::get_lo(){ return low;}
+//std::vector<std::string> Model::get_bt(){ return begin_time;}
+//std::vector<std::string> Model::get_et(){ return end_time;}
+//std::vector<double> Model::get_op(){ return open;}
+//std::vector<double> Model::get_cl(){ return close;}
+//std::vector<double> Model::get_hi(){ return high;}
+//std::vector<double> Model::get_lo(){ return low;}
 
 std::string Model::get_future_name(int index) {
-    return list_of_futures[index];
+    return futures_list_[index];
 }
 
 std::size_t Model::get_number_of_instruments() {
-    return number_of_instruments;
+    return instruments_num_;
+}
 
-ModelData Model::get_data_byIndex(std::size_t index) const {
+ModelData Model::get_data_byIndex(std::size_t index) /*const*/ {
     return data_[index];
 }
 
