@@ -1,6 +1,12 @@
 #include "model.h"
 #include <iostream>
 
+enum RequestType {
+    ALL_INSTRUMENTS = 1,
+    ONE_INSTRUMENT = 2,
+    INTERVALS = 3
+};
+
 void Model::set_fields(QJsonArray &data_array, std::size_t type) {
     if (data_array.empty()) {
         std::cout << "\nDataArraySize\n";
@@ -30,6 +36,7 @@ void Model::set_fields(QJsonArray &data_array, std::size_t type) {
     }
 }
 
+
 std::string Model::convert_to_std_string(QJsonValueRef arg) const {
     return arg.toString().toStdString();
 }
@@ -47,6 +54,21 @@ std::ostream &operator<<(std::ostream &out, const Model &model) {
     out << "--------------------------------------------------\n";
     return out;
 }
+
+
+std::vector<std::string> Model::get_bt(){ return begin_time;}
+std::vector<std::string> Model::get_et(){ return end_time;}
+std::vector<double> Model::get_op(){ return open;}
+std::vector<double> Model::get_cl(){ return close;}
+std::vector<double> Model::get_hi(){ return high;}
+std::vector<double> Model::get_lo(){ return low;}
+
+std::string Model::get_future_name(int index) {
+    return list_of_futures[index];
+}
+
+std::size_t Model::get_number_of_instruments() {
+    return number_of_instruments;
 
 ModelData Model::get_data_byIndex(std::size_t index) const {
     return data_[index];

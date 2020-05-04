@@ -1,7 +1,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "load.h"
+//#include "load.h"
 #include <string>
 #include <QJsonArray>
 #include <vector>
@@ -21,6 +21,9 @@ public:
     Model() = default;
 
     ~Model() = default;
+
+    std::string get_future_name(int index);
+    std::size_t get_number_of_instruments();
 
     void set_fields(QJsonArray &data_array, std::size_t type);
 

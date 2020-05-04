@@ -13,8 +13,10 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QDateTimeEdit>
-#include "model.h"
+#include "load.h"
 #include "chartwindow.h"
+
+class load;
 
 class MainDialog : public QDialog {
 Q_OBJECT
@@ -22,21 +24,15 @@ public:
     MainDialog(QWidget *parent = 0);
 
 private slots:
-
-    void showClicked();
-
     void findClicked();
-
-    void managerFinished(QNetworkReply *reply); // cлот, выполняемый при завершении запроса
-    void anotherRequest(QNetworkReply *reply);
-
+    void show_graph();
     void enableShowButton(const QString &text);
-
+  
 private:
-    Model mm;
-    chartwindow *chwi;//добавил
-    QNetworkAccessManager *manager;
-    QNetworkRequest request;
+    chartwindow *chwi; //добавил
+    load loader;
+    QString company_;
+    std::string company = "";
     QLabel *labelInstrumentName_;
     QPushButton *graphButton_;
     QPushButton *showButton_;

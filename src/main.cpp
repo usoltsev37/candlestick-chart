@@ -4,7 +4,6 @@
 #include <QtWidgets/QLabel>
 #include <iostream>
 #include "MainDialog.h"
-#include "view.h"
 #include "chartwindow.h"
 
 using namespace std;

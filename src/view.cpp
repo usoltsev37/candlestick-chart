@@ -1,9 +1,9 @@
 #include "view.h"
 
 
-view::view(std::string chart_name, Model &model) {
-
-}
+//view::view(std::string chart_name, Model &model) {
+//
+//}
 
 view::Candlestick_Chart::Candlestick_Chart() {
 
