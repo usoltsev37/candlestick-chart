@@ -1,6 +1,14 @@
 #include "themewindow.h"
 #include "ui_themewindow.h"
 #include "styleset.h"
+#include <QTime>
+#include <QTimer>
+#include <QGraphicsDropShadowEffect>
+#include <QPalette>
+#include <QStandardItemModel>
+#include <QToolButton>
+#include <QMouseEvent>
+
 //полно плохого копипаста, но доработка планируется на лучшие времена
 themewindow::themewindow(QWidget *parent) :
     QWidget(parent),

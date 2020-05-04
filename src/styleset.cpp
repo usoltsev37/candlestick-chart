@@ -1,4 +1,5 @@
 #include "styleset.h"
+#include <QString>
 
 QString styleset::getWindowStyleSheet()
 {

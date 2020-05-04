@@ -1,8 +1,7 @@
 #ifndef STYLESET_H
 #define STYLESET_H
 
-
-#include <QString>
+class QString;
 
 class styleset
 {

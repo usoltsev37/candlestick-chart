@@ -1,23 +1,26 @@
 #ifndef LOAD_H
 #define LOAD_H
 
-
-#include <string>
-#include <QUrl>
-#include <QDateTimeEdit>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QObject>
-#include <QtCore/QJsonObject>
-#include <QJsonDocument>
-#include <iostream>
-#include <QtWidgets/QComboBox>
-#include <QTimer>
 #include "model.h"
+#include <QObject>
+#include <QNetworkRequest>
+#include <string>
+
 //#include "candlesFwd.h"
 //#include "MainDialog.h"
 
 //class Model;
+class QUrl;
+class QDateTimeEdit;
+class QNetworkRequest;
+class QNetworkReply;
+class QNetworkReply;
+class QObject;
+class QJsonObject;
+class QJsonDocument;
+class QComboBox;
+class QTimer;
+class QNetworkAccessManager;
 
 enum RequestType {
     ALL_INSTRUMENTS = 1,

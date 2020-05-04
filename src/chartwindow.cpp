@@ -1,8 +1,17 @@
-
+#include "styleset.h"
 #include "ui_chartwindow.h"
 #include "chartwindow.h"
 #include <QStyleFactory>
-#include "styleset.h"
+#include <QWidget>
+#include <QMdiArea>
+#include <QPushButton>
+#include <QTimer>
+#include <QtCharts/QCandlestickModelMapper>
+#include <QtCharts/QCandlestickLegendMarker>
+#include <QtCharts/QCandlestickSet>
+#include <QtCharts/QCandlestickSeries>
+#include <QDateTime>
+
 #include <assert.h>
 #include <iostream>
 

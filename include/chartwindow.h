@@ -1,21 +1,22 @@
 #ifndef CHARTWINDOW_H
 #define CHARTWINDOW_H
 
-#include <QWidget>
-#include <QMdiArea>
-#include <QPushButton>
-#include <QTimer>
-#include <QtCharts/QCandlestickModelMapper>
-#include <QtCharts/QCandlestickLegendMarker>
-#include <QtCharts/QCandlestickSet>
-#include <QtCharts/QCandlestickSeries>
-#include <QDateTime>
+#include "view.h"
+#include "themewindow.h"
+
 #include "model.h"
 
 #include <vector>
 
-#include "view.h"
-#include "themewindow.h"
+class QWidget;
+class QMdiArea;
+class QPushButton;
+class QTimer;
+class QCandlestickModelMapper;
+class QCandlestickLegendMarker;
+class QCandlestickSet;
+class QCandlestickSeries;
+class QDateTime;
 
 struct Candle{
     QtCharts::QCandlestickSet *candlestickSet;

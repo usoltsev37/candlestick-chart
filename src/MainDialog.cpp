@@ -1,4 +1,13 @@
 #include "MainDialog.h"
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QComboBox>
+#include <QtGui>
+#include <QLabel>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QDateTimeEdit>
 
 MainDialog::MainDialog(QWidget *parent)
         : QDialog(parent) {

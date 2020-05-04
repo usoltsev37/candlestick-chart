@@ -3,8 +3,10 @@
 
 //#include "load.h"
 #include <string>
-#include <QJsonArray>
 #include <vector>
+
+class QJsonArray;
+class QJsonValueRef;
 
 class ModelData {
 public:

@@ -1,22 +1,21 @@
 #ifndef PROJECT_ANDLESTICK_HART_MAINDIALOG_H
 #define PROJECT_ANDLESTICK_HART_MAINDIALOG_H
 
-#include <QDialog>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QComboBox>
-#include <QtGui>
-#include <QLabel>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QDateTimeEdit>
 #include "load.h"
 #include "chartwindow.h"
+#include <QDialog>
 
 class load;
+
+class QNetworkReply;
+class QJsonDocument;
+class QJsonObject;
+class QJsonArray;
+class QComboBox;
+class QLabel;
+class QPushButton;
+class QHBoxLayout;
+class QDateTimeEdit;
 
 class MainDialog : public QDialog {
 Q_OBJECT

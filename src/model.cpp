@@ -1,4 +1,5 @@
 #include "model.h"
+#include <QJsonArray>
 #include <iostream>
 
 enum RequestType {

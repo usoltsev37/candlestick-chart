@@ -1,4 +1,14 @@
 #include "load.h"
+#include <QUrl>
+#include <QDateTimeEdit>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QtCore/QJsonObject>
+#include <QJsonDocument>
+#include <QtWidgets/QComboBox>
+#include <QTimer>
+#include <QJsonArray>
+#include <iostream>
 
 std::string load::date_to_string(QDateTimeEdit *date) {
     std::string s = date->text().toStdString();

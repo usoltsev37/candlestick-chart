@@ -2,13 +2,13 @@
 #define THEMEWINDOW_H
 
 #include <QWidget>
-#include <QTime>
-#include <QTimer>
-#include <QGraphicsDropShadowEffect>
-#include <QPalette>
-#include <QStandardItemModel>
-#include <QToolButton>
-#include <QMouseEvent>
+
+class QTimer;
+class QGraphicsDropShadowEffect;
+class QPalette;
+class QStandardItemModel;
+class QToolButton;
+class QMouseEvent;
 
 namespace Ui {
 class themewindow;
