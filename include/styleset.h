@@ -3,8 +3,7 @@
 
 class QString;
 
-class styleset
-{
+class styleset {
 public:
     static QString getWindowStyleSheet();
     static QString getLabelStyleSheet();

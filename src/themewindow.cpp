@@ -11,10 +11,9 @@
 
 //полно плохого копипаста, но доработка планируется на лучшие времена
 themewindow::themewindow(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::themewindow),
-    m_leftMouseButtonPressed(None)
-{
+        QWidget(parent),
+        ui(new Ui::themewindow),
+        m_leftMouseButtonPressed(None) {
 
     ui->setupUi(this);
 
@@ -22,29 +21,29 @@ themewindow::themewindow(QWidget *parent) :
     this->setStyleSheet(styleset::getWindowStyleSheet());
     this->setMouseTracking(true);//отслеживаем курсор
 
-        ui->label->setText("theme change");
-        ui->label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    ui->label->setText("theme change");
+    ui->label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
-        ui->max_btn->setStyleSheet(styleset::getMaximizeStyleSheet());
-        ui->cls_btn->setStyleSheet(styleset::getCloseStyleSheet());
-        ui->min_btn->setStyleSheet(styleset::getMinimizeStyleSheet());
-        ui->pushButton_2->setStyleSheet(styleset::getPlayStyleSheet());
-        ui->Test_button->setStyleSheet(styleset::getMenuStyleSheet());
-        ui->pushButton_2->setCursor(Qt::PointingHandCursor);
-        ui->Test_button->setCursor(Qt::PointingHandCursor);
+    ui->max_btn->setStyleSheet(styleset::getMaximizeStyleSheet());
+    ui->cls_btn->setStyleSheet(styleset::getCloseStyleSheet());
+    ui->min_btn->setStyleSheet(styleset::getMinimizeStyleSheet());
+    ui->pushButton_2->setStyleSheet(styleset::getPlayStyleSheet());
+    ui->Test_button->setStyleSheet(styleset::getMenuStyleSheet());
+    ui->pushButton_2->setCursor(Qt::PointingHandCursor);
+    ui->Test_button->setCursor(Qt::PointingHandCursor);
 
-        connect(ui->min_btn, &QToolButton::clicked, this, &QWidget::showMinimized);
-        connect(ui->max_btn, &QToolButton::clicked, [this](){
-                if (this->isMaximized()) {
-                    ui->max_btn->setStyleSheet(styleset::getMaximizeStyleSheet());
-                    this->layout()->setMargin(9);
-                    this->showNormal();
-                } else {
-                    ui->max_btn->setStyleSheet(styleset::getRestoreStyleSheet());
-                    this->layout()->setMargin(0);
-                    this->showMaximized();
-                }
-            });
+    connect(ui->min_btn, &QToolButton::clicked, this, &QWidget::showMinimized);
+    connect(ui->max_btn, &QToolButton::clicked, [this]() {
+        if (this->isMaximized()) {
+            ui->max_btn->setStyleSheet(styleset::getMaximizeStyleSheet());
+            this->layout()->setMargin(9);
+            this->showNormal();
+        } else {
+            ui->max_btn->setStyleSheet(styleset::getRestoreStyleSheet());
+            this->layout()->setMargin(0);
+            this->showMaximized();
+        }
+    });
 
     connect(ui->cls_btn, SIGNAL(clicked()), this, SLOT(on_buttonclick()));
     connect(ui->Test_button, SIGNAL(clicked()), this, SLOT(on_Test_button_clicked));
@@ -52,28 +51,27 @@ themewindow::themewindow(QWidget *parent) :
 
 }
 
-themewindow::~themewindow()
-{
+themewindow::~themewindow() {
     delete ui;
 }
 
 
-QPoint themewindow::previousPosition() const{
+QPoint themewindow::previousPosition() const {
     return m_previousPosition;
 }
 
-void themewindow::setPreviousPosition(QPoint previousPosition){
+void themewindow::setPreviousPosition(QPoint previousPosition) {
     if (m_previousPosition == previousPosition)
-            return;
+        return;
 
-        m_previousPosition = previousPosition;
-        emit previousPositionChanged(previousPosition);
+    m_previousPosition = previousPosition;
+    emit previousPositionChanged(previousPosition);
 
 }
 
 
-void themewindow::mousePressEvent(QMouseEvent *event){
-    if (event->button() == Qt::LeftButton ) {
+void themewindow::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
         // Определяем, в какой области произошёл клик
         m_leftMouseButtonPressed = checkResizableField(event);
         setPreviousPosition(event->pos()); // и устанавливаем позицию клика
@@ -81,7 +79,7 @@ void themewindow::mousePressEvent(QMouseEvent *event){
     return QWidget::mousePressEvent(event);
 }
 
-void themewindow::mouseReleaseEvent(QMouseEvent *event){
+void themewindow::mouseReleaseEvent(QMouseEvent *event) {
     //отпускаем лкм сбрасываем клик
     if (event->button() == Qt::LeftButton) {
         m_leftMouseButtonPressed = None;
@@ -90,77 +88,75 @@ void themewindow::mouseReleaseEvent(QMouseEvent *event){
 }
 
 
-void themewindow::mouseMoveEvent(QMouseEvent *event)
-{
+void themewindow::mouseMoveEvent(QMouseEvent *event) {
     // При перемещении мыши, проверяем статус нажатия левой кнопки мыши
     switch (m_leftMouseButtonPressed) {
-    case Move: {
-        // При этом проверяем, не максимизировано ли окно
-        if (isMaximized()) {
-            /* При перемещении из максимизированного состояния
-            Необходимо вернуть окно в нормальное состояние и установить стили кнопки
-            А также путём нехитрых вычислений пересчитать позицию окна,
-            чтобы оно оказалось под курсором*/
-            ui->max_btn->setStyleSheet(styleset::getMaximizeStyleSheet());
-            this->layout()->setMargin(9);
-            auto part = event->screenPos().x() / width();
-            this->showNormal();
-            auto offsetX = width() * part;
-            setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
-            setPreviousPosition(QPoint(offsetX, event->y()));
-        } else {
-            // Если окно не максимизировано, то просто перемещаем его относительно
-            // последней запомненной позиции, пока не отпустим кнопку мыши
-            auto dx = event->x() - m_previousPosition.x();
-            auto dy = event->y() - m_previousPosition.y();
-            setGeometry(x() + dx, y() + dy, width(), height());
+        case Move: {
+            // При этом проверяем, не максимизировано ли окно
+            if (isMaximized()) {
+                /* При перемещении из максимизированного состояния
+                Необходимо вернуть окно в нормальное состояние и установить стили кнопки
+                А также путём нехитрых вычислений пересчитать позицию окна,
+                чтобы оно оказалось под курсором*/
+                ui->max_btn->setStyleSheet(styleset::getMaximizeStyleSheet());
+                this->layout()->setMargin(9);
+                auto part = event->screenPos().x() / width();
+                this->showNormal();
+                auto offsetX = width() * part;
+                setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
+                setPreviousPosition(QPoint(offsetX, event->y()));
+            } else {
+                // Если окно не максимизировано, то просто перемещаем его относительно
+                // последней запомненной позиции, пока не отпустим кнопку мыши
+                auto dx = event->x() - m_previousPosition.x();
+                auto dy = event->y() - m_previousPosition.y();
+                setGeometry(x() + dx, y() + dy, width(), height());
+            }
+            break;
         }
-        break;
-    }
-    case Top: {
-        // Для изменения размеров также проверяем на максимизацию
-        // поскольку мы же не можем изменить размеры у максимизированного окна
-        if (!isMaximized()) {
-            auto dy = event->y() - m_previousPosition.y();
-            setGeometry(x(), y() + dy, width(), height() - dy);
+        case Top: {
+            // Для изменения размеров также проверяем на максимизацию
+            // поскольку мы же не можем изменить размеры у максимизированного окна
+            if (!isMaximized()) {
+                auto dy = event->y() - m_previousPosition.y();
+                setGeometry(x(), y() + dy, width(), height() - dy);
+            }
+            break;
         }
-        break;
-    }
-    case Bottom: {
-        if (!isMaximized()) {
-            auto dy = event->y() - m_previousPosition.y();
-            setGeometry(x(), y(), width(), height() + dy);
-            setPreviousPosition(event->pos());
+        case Bottom: {
+            if (!isMaximized()) {
+                auto dy = event->y() - m_previousPosition.y();
+                setGeometry(x(), y(), width(), height() + dy);
+                setPreviousPosition(event->pos());
+            }
+            break;
         }
-        break;
-    }
-    case Left: {
-        if (!isMaximized()) {
-            auto dx = event->x() - m_previousPosition.x();
-            setGeometry(x() + dx, y(), width() - dx, height());
+        case Left: {
+            if (!isMaximized()) {
+                auto dx = event->x() - m_previousPosition.x();
+                setGeometry(x() + dx, y(), width() - dx, height());
+            }
+            break;
         }
-        break;
-    }
-    case Right: {
-        if (!isMaximized()) {
-            auto dx = event->x() - m_previousPosition.x();
-            setGeometry(x(), y(), width() + dx, height());
-            setPreviousPosition(event->pos());
+        case Right: {
+            if (!isMaximized()) {
+                auto dx = event->x() - m_previousPosition.x();
+                setGeometry(x(), y(), width() + dx, height());
+                setPreviousPosition(event->pos());
+            }
+            break;
         }
-        break;
-    }
-    default:
-        // Если курсор перемещается по окну без зажатой кнопки,
-        // то просто отслеживаем в какой области он находится
-        // и изменяем его курсор
-        checkResizableField(event);
-        break;
+        default:
+            // Если курсор перемещается по окну без зажатой кнопки,
+            // то просто отслеживаем в какой области он находится
+            // и изменяем его курсор
+            checkResizableField(event);
+            break;
     }
     return QWidget::mouseMoveEvent(event);
 }
 
-themewindow::MouseType themewindow::checkResizableField(QMouseEvent *event)
-{
+themewindow::MouseType themewindow::checkResizableField(QMouseEvent *event) {
     QPointF position = event->screenPos();  // Определяем позицию курсора на экране
     qreal x = this->x();                    // координаты окна приложения, ...
     qreal y = this->y();                    // ... то есть координату левого верхнего угла окна
@@ -189,7 +185,7 @@ themewindow::MouseType themewindow::checkResizableField(QMouseEvent *event)
     } else if (rectRight.contains(position)) {
         setCursor(Qt::SizeHorCursor);
         return Right;
-    } else if (rectInterface.contains(position)){
+    } else if (rectInterface.contains(position)) {
         setCursor(QCursor());
         return Move;
     } else {
@@ -198,16 +194,15 @@ themewindow::MouseType themewindow::checkResizableField(QMouseEvent *event)
     }
 }
 
-void themewindow::on_buttonclick(){
+void themewindow::on_buttonclick() {
     themewindow::close();
 
 }
 
 
-void themewindow::on_Test_button_clicked()
-{
+void themewindow::on_Test_button_clicked() {
     QPalette pal_1(palette());
-    if(ui->comboBox->currentText() == "Default"){
+    if (ui->comboBox->currentText() == "Default") {
         pal_1.setColor(QPalette::Window, QColor(53, 53, 53));
         pal_1.setColor(QPalette::WindowText, Qt::white);
         pal_1.setColor(QPalette::Base, QColor(25, 25, 25));
@@ -223,12 +218,10 @@ void themewindow::on_Test_button_clicked()
         pal_1.setColor(QPalette::HighlightedText, Qt::black);
         this->setPalette(pal_1);
         ui->Test_button->setStyleSheet(QString::fromUtf8("background-color: rgb(61, 87, 59);"));
-    }
-    else if(ui->comboBox->currentText() == "Dark"){
+    } else if (ui->comboBox->currentText() == "Dark") {
         this->setPalette(style()->standardPalette());
         ui->Test_button->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 190, 132);"));
-    }
-    else if(ui->comboBox->currentText() == "Red"){
+    } else if (ui->comboBox->currentText() == "Red") {
         this->setAutoFillBackground(true);
         pal_1.setColor(QPalette::Background, Qt::red);
         this->setPalette(pal_1);
@@ -236,12 +229,11 @@ void themewindow::on_Test_button_clicked()
     }
 }
 
-QString themewindow::get_theme_name(){
+QString themewindow::get_theme_name() {
     return current_theme;
 }
 
-void themewindow::on_pushButton_2_clicked()
-{
+void themewindow::on_pushButton_2_clicked() {
     QString wanted = ui->comboBox->currentText();
     current_theme = wanted;
 }

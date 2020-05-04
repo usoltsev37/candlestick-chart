@@ -1,16 +1,14 @@
 #include "styleset.h"
 #include <QString>
 
-QString styleset::getWindowStyleSheet()
-{
+QString styleset::getWindowStyleSheet() {
     return "QWidget { "
            "background-color: #454545; "
            "border: 0px solid black; "
            "}";
 }
 
-QString styleset::getLabelStyleSheet()
-{
+QString styleset::getLabelStyleSheet() {
     return "QLabel { "
            "color: #8f8f8f; "
            "border: none; "
@@ -18,8 +16,7 @@ QString styleset::getLabelStyleSheet()
            "}";
 }
 
-QString styleset::getCloseStyleSheet()
-{
+QString styleset::getCloseStyleSheet() {
     return "QToolButton { "
            "image: url(:/buttons/close-orange.png);"
            "background-color: #292929; "
@@ -39,8 +36,7 @@ QString styleset::getCloseStyleSheet()
            "}";
 }
 
-QString styleset::getMaximizeStyleSheet()
-{
+QString styleset::getMaximizeStyleSheet() {
     return "QToolButton { "
            "image: url(:/buttons/window-maximize-gray.png);"
            "background-color: #292929;"
@@ -60,8 +56,7 @@ QString styleset::getMaximizeStyleSheet()
            "}";
 }
 
-QString styleset::getRestoreStyleSheet()
-{
+QString styleset::getRestoreStyleSheet() {
     return "QToolButton { "
            "image: url(:/buttons/window-restore-gray.png);"
            "background-color: #292929;"
@@ -81,8 +76,7 @@ QString styleset::getRestoreStyleSheet()
            "}";
 }
 
-QString styleset::getMinimizeStyleSheet()
-{
+QString styleset::getMinimizeStyleSheet() {
     return "QToolButton { "
            "image: url(:/buttons/window-minimize-gray.png);"
            "background-color: #292929;"
@@ -103,8 +97,7 @@ QString styleset::getMinimizeStyleSheet()
 }
 
 
-QString styleset::getStopStyleSheet()
-{
+QString styleset::getStopStyleSheet() {
     return "QToolButton { "
            "image: url(:/buttons/stop.png);"
            "icon-size: 24px;"
@@ -117,8 +110,7 @@ QString styleset::getStopStyleSheet()
            "}";
 }
 
-QString styleset::getPlayStyleSheet()
-{
+QString styleset::getPlayStyleSheet() {
     return "QToolButton { "
            "image: url(:/buttons/play.png);"
            "icon-size: 48px;"
@@ -132,8 +124,7 @@ QString styleset::getPlayStyleSheet()
 }
 
 
-QString styleset::getMenuStyleSheet()
-{
+QString styleset::getMenuStyleSheet() {
     return "QToolButton { "
            "color: #8f8f8f;"
            "background-color: #292929;"
@@ -153,8 +144,7 @@ QString styleset::getMenuStyleSheet()
            "}";
 }
 
-QString styleset::getTableViewStyleSheet()
-{
+QString styleset::getTableViewStyleSheet() {
     return "QTableView { "
            "background-color: white; "
            "color: black; "
