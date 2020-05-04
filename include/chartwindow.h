@@ -63,16 +63,16 @@ public:
 
     ~chartwindow();
 
-    double str_to_timestamp(std::string date);
+    double str_to_timestamp(const std::string &date) const;
 
-    void fill(Model model);
+    void fill(const Model &model); // Гоша, нужно обусдуить как нам побольше мувать
 
 private slots:
 
     // Слоты от кнопок главного окна
     void on_pushButton_clicked();
 
-    void on_pushButton2_clicked();
+    void on_pushButton2_clicked() const;
 
     void theme_change();//process
 
@@ -93,8 +93,8 @@ protected:
 
 class DataGrouping {
 public:
-    DataGrouping(std::vector<ModelData> in, int compressing_by_n_days) {
-        candle_vec = in;
+    DataGrouping(std::vector<ModelData> in, int compressing_by_n_days) { // Гоша, а нельзя in замувать?
+        candle_vec = std::move(in);
         tmp_open = candle_vec[0].open;
         tmp_close = candle_vec[0].close;
         tmp_high = candle_vec[0].high;
@@ -105,14 +105,14 @@ public:
 
     void compress_by_n_days();
 
-    double str_to_timestamp(std::string date);
+    double str_to_timestamp(const std::string &date) const; // Гоша, точно такой же метод есть chartwindow, напишу обсудим как вынести это
 
     std::vector<Candle> result;
 
 private:
     std::vector<ModelData> candle_vec;
 
-    int unix_time_cnt, number_of_days;
+    size_t unix_time_cnt, number_of_days;
     double tmp_open, tmp_close, tmp_high, tmp_low;
 };
 

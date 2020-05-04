@@ -16,7 +16,7 @@
 #include <iostream>
 
 //копия аналогичной функции из класса chartwindow, наверное, стоит сделать её глобальной
-double DataGrouping::str_to_timestamp(std::string date) {
+double DataGrouping::str_to_timestamp(const std::string &date) const {
     QDateTime tmp_date_time = QDateTime::fromString(QString::fromStdString(date),
                                                     "yyyy-MM-dd hh:mm:ss");
     double timestamp = tmp_date_time.toTime_t();
@@ -24,12 +24,15 @@ double DataGrouping::str_to_timestamp(std::string date) {
 }
 
 void DataGrouping::compress_by_n_days() {
+    constexpr size_t seconds_per_day = 86400;
+    size_t seconds_for_period = seconds_per_day * number_of_days;
+
     for (size_t i = 1; i < candle_vec.size();) {
         tmp_open = candle_vec[i - 1].open;
         double lowest = candle_vec[i - 1].low;
         double highest = candle_vec[i - 1].high;
 
-        while (unix_time_cnt < 86400 * number_of_days) { //unix время в секундах, в дне 86400 секунд
+        while (unix_time_cnt < seconds_for_period) { //unix время в секундах, в дне 86400 секунд
             if (i >= candle_vec.size()) break;
             if (lowest > candle_vec[i].low)
                 lowest = candle_vec[i].low;
@@ -37,7 +40,7 @@ void DataGrouping::compress_by_n_days() {
                 highest = candle_vec[i].high;
 
             if (unix_time_cnt + str_to_timestamp(candle_vec[i].begin_time)
-                - str_to_timestamp(candle_vec[i - 1].end_time) >= 86400 * number_of_days)
+                - str_to_timestamp(candle_vec[i - 1].end_time) >= seconds_for_period)
                 //предвидим закрытие
                 tmp_close = candle_vec[i].close;
 
@@ -57,7 +60,7 @@ void DataGrouping::compress_by_n_days() {
 }
 
 
-double chartwindow::str_to_timestamp(std::string date) {
+double chartwindow::str_to_timestamp(const std::string &date) const {
     QDateTime tmp_date_time = QDateTime::fromString(QString::fromStdString(date),
                                                     "yyyy-MM-dd hh:mm:ss");
     double timestamp = tmp_date_time.toTime_t();
@@ -91,7 +94,7 @@ chartwindow::~chartwindow() {
     delete ui;
 }
 
-void chartwindow::fill(Model model) {
+void chartwindow::fill(const Model &model) {
 
     QtCharts::QCandlestickSeries * acmeSeries = new QtCharts::QCandlestickSeries();
     acmeSeries->setName(tr("Candles"));
@@ -101,13 +104,13 @@ void chartwindow::fill(Model model) {
     const size_t size_of_data = model.get_size();
     ModelData tmp;
     for (std::size_t i = 0; i < size_of_data - 1; i++) {
-        tmp.low = model.get_data_byIndex(i).low;
-        tmp.high = model.get_data_byIndex(i).high;
-        tmp.open = model.get_data_byIndex(i).open;
-        tmp.close = model.get_data_byIndex(i).close;
-        tmp.end_time = model.get_data_byIndex(i).end_time;
-        tmp.begin_time = model.get_data_byIndex(i).begin_time;
-        data.push_back(tmp);
+        tmp.low = model.get_data_by_index(i).low;
+        tmp.high = model.get_data_by_index(i).high;
+        tmp.open = model.get_data_by_index(i).open;
+        tmp.close = model.get_data_by_index(i).close;
+        tmp.end_time = model.get_data_by_index(i).end_time;
+        tmp.begin_time = model.get_data_by_index(i).begin_time;
+        data.push_back(std::move(tmp));
     }
 
     DataGrouping *convey = new DataGrouping(data, 2);
@@ -138,7 +141,7 @@ void chartwindow::fill(Model model) {
     chartView = new QtCharts::QChartView(chart);
     chartView->setRubberBand(QtCharts::QChartView::HorizontalRubberBand);
     chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setParent(ui->horizontalFrame);//важно
+    chartView->setParent(ui->horizontalFrame); //важно
 }
 
 void chartwindow::on_pushButton_clicked() {
@@ -146,7 +149,7 @@ void chartwindow::on_pushButton_clicked() {
     chartwindow::close();
 }
 
-void chartwindow::on_pushButton2_clicked() {
+void chartwindow::on_pushButton2_clicked() const { // Гоша, название звучит ужасно
     themewin->show();
 }
 
@@ -159,8 +162,8 @@ void chartwindow::keyPressEvent(QKeyEvent *event) {
             chartView->chart()->zoomOut();
             break;
         case Qt::Key_D:
-            chartView->chart()->scroll(10,
-                                       0);//здесь можно не константы, а интовую или дабловую переменную на чуствительность
+            chartView->chart()->scroll(10, 0);//здесь можно не константы, а интовую
+                                                        // или дабловую переменную на чуствительность
             break;
         case Qt::Key_A:
             chartView->chart()->scroll(-10, 0);

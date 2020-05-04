@@ -33,7 +33,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const Model &model);
 
-    ModelData get_data_byIndex(std::size_t index) /*const*/;
+    ModelData get_data_by_index(const std::size_t index) const;
 
     std::size_t get_size() const;
 

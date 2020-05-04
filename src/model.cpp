@@ -72,7 +72,7 @@ std::size_t Model::get_number_of_instruments() {
     return instruments_num_;
 }
 
-ModelData Model::get_data_byIndex(std::size_t index) /*const*/ {
+ModelData Model::get_data_by_index(const std::size_t index) const {
     return data_[index];
 }
 
