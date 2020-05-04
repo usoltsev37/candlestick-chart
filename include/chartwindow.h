@@ -58,7 +58,6 @@ namespace Ui {
 
 
 class chartwindow : public QWidget {
-Q_OBJECT
 public:
     explicit chartwindow(QWidget *parent = nullptr);
 

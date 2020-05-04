@@ -20,7 +20,7 @@ class QDateTimeEdit;
 class MainDialog : public QDialog {
 Q_OBJECT
 public:
-    MainDialog(QWidget *parent = 0);
+    MainDialog(QWidget *parent = nullptr);
 
 private slots:
     void findClicked();

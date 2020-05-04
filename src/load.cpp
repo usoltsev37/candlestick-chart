@@ -41,7 +41,7 @@ void load::set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *date
 }
 
 void load::do_all_instrument_request() {
-    manager = new QNetworkAccessManager();
+    manager = new QNetworkAccessManager(this);
 
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(managerFinished(QNetworkReply * )));
@@ -71,7 +71,7 @@ void load::do_one_instrument_request(QTimer* timer) {
     cstr[s.size()] = '\0';
     std::cout << s << '\n';
     QUrl url = QUrl(cstr);
-    manager = new QNetworkAccessManager();
+    manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(anotherRequest(QNetworkReply *)));
     request.setUrl(url);
