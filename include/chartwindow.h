@@ -56,16 +56,7 @@ public:
     explicit chartwindow(QWidget *parent = nullptr);
     ~chartwindow();
     double str_to_timestamp(std::string date);
-
-    std::vector<std::string> begin_time;
-    std::vector<std::string> end_time;
-    std::vector<double> open;
-    std::vector<double> closse;
-    std::vector<double> high;
-    std::vector<double> low;
-
-    std::vector<ModelData> data; // это дожно быть private ->data_
-    void fill(Model &model);
+    void fill(Model model);
 
 private slots:
     // Слоты от кнопок главного окна
@@ -82,8 +73,36 @@ private:
     themewindow* themewin;
     QtCharts::QChart *chart;
     QtCharts::QChartView *chartView;
+    std::vector<Candle> drawable_data;
+    std::vector<ModelData> data; // это дожно быть private ->data_
 protected:
      void keyPressEvent(QKeyEvent *event);
+};
+
+
+class DataGrouping{
+
+public:
+    DataGrouping(std::vector<ModelData> in, int compressing_by_n_days){
+        candle_vec = in;
+        tmp_open = candle_vec[0].open;
+        tmp_close = candle_vec[0].close;
+        tmp_high = candle_vec[0].high;
+        tmp_low = candle_vec[0].low;
+        unix_time_cnt = 0;
+        number_of_days = compressing_by_n_days;
+    }
+
+    void compress_by_n_days();
+    double str_to_timestamp(std::string date);
+    std::vector<Candle> result;
+
+private:
+    std::vector<ModelData> candle_vec;
+
+    int unix_time_cnt, number_of_days;
+    double tmp_open, tmp_close,
+        tmp_high, tmp_low;
 };
 
 #endif // CHARTWINDOW_H

@@ -20,8 +20,6 @@ MainDialog::MainDialog(QWidget *parent)
     labelInstrumentName_ = new QLabel(tr("Instrument Name: "));
     labelInstrumentName_->setBuddy(comboBox);
 
-    chwi = new chartwindow; //добавил
-
     connect(comboBox, SIGNAL(currentIndexChanged(
                                      const QString &)),
             this, SLOT(enableShowButton(
@@ -57,6 +55,8 @@ MainDialog::MainDialog(QWidget *parent)
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());
     loader.do_all_instrument_request();
+
+    chwi = new chartwindow; //добавил
 }
 
 void MainDialog::findClicked() {
@@ -67,13 +67,13 @@ void MainDialog::findClicked() {
         show_graph();
         this->loader.timer->deleteLater();
     });
+}
 
 void MainDialog::enableShowButton(const QString &text) {
     showButton_->setEnabled(text != "-");
 }
 
 void MainDialog::show_graph() {
-    chwi->fill(loader.mm.get_bt(), loader.mm.get_et(), loader.mm.get_op(),
-            loader.mm.get_cl(), loader.mm.get_hi(), loader.mm.get_lo());
+    chwi->fill(loader.mm);
     chwi->show();
 }
