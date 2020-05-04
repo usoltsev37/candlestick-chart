@@ -12,32 +12,29 @@
 
 std::string load::date_to_string(QDateTimeEdit *date) {
     std::string s = date->text().toStdString();
-    for (int i = 0; i < s.length(); ++i)
-        if (s[i] == '.')
-            s[i] = '-';
+    for(char &i : s)
+        if (i == '.')
+            i = '-';
     return s;
 }
-void load::set_url(std::string str) {
+
+void load::set_url(const std::string &str) {
     char cstr[str.size() + 1];
     str.copy(cstr, str.size() + 1);
     cstr[str.size()] = '\0';
     url = QUrl(cstr);
 }
 
-
-QUrl load::get_url() {
+QUrl load::get_url() const {
     return url;
 }
 
 void load::set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo) {
     str += "?from=" + date_to_string(dateFrom) + "&till=" + date_to_string(dateTo)
             + "&start=" + std::to_string(start);
-    start += 500;
+    start += 500; // Влад, давай сделаем магическую константу
     std::cout << str << '\n';
-    char cstr[str.size() + 1];
-    str.copy(cstr, str.size() + 1);
-    cstr[str.size()] = '\0';
-    url = QUrl(cstr);
+    set_url(str); //Влад, чтобы не дублировать код, хотя на первый взгляд какая-то "рекурсивная фукция" может переименовать?
 }
 
 void load::do_all_instrument_request() {
@@ -66,9 +63,9 @@ void load::managerFinished(QNetworkReply *reply) {
 
 void load::do_one_instrument_request(QTimer* timer) {
     std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiU1/candles.json";
-    char cstr[s.size() + 1];
-    s.copy(cstr, s.size() + 1);
-    cstr[s.size()] = '\0';
+    char cstr[s.size() + 1];       //
+    s.copy(cstr, s.size() + 1); // Влад, может просто вынести эти 3 строчки в функцию? И вроде этот метод называется c_str?
+    cstr[s.size()] = '\0';         //
     std::cout << s << '\n';
     QUrl url = QUrl(cstr);
     manager = new QNetworkAccessManager(this);
@@ -90,5 +87,5 @@ void load::anotherRequest(QNetworkReply *reply) {
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
-    timer->start(1000);
+    timer->start(1000); // Влад, давай сделаем магическую константу
 }

@@ -34,9 +34,9 @@ Q_OBJECT
 public:
     load() = default;
     std::string date_to_string(QDateTimeEdit* date);
-    void set_url(std::string str);
-    void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo);
-    QUrl get_url();
+    void set_url(const std::string &str);
+    void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo); // Влад, можно сюда &str?????
+    QUrl get_url() const;
     void do_all_instrument_request();
     void do_one_instrument_request(QTimer* timer);
     QNetworkAccessManager *manager;
