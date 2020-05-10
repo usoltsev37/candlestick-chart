@@ -38,6 +38,7 @@ MainDialog::MainDialog(QWidget *parent)
 
     chwi = new chartwindow(); // TODO add this
 
+
     set_QHBox();
 
     setWindowTitle(tr("Сandlestick Сhart"));
@@ -88,6 +89,22 @@ void MainDialog::enableShowButton(const QString &text) {
 }
 
 void MainDialog::show_graph() {
+
     chwi->fill(loader.mm);
+    chwi->chart_reload();
     chwi->show();
+
+    QTimer *timer_for_buttons = new QTimer();
+    timer_for_buttons->start(200);
+
+    connect(timer_for_buttons, SIGNAL(timeout()), this, SLOT(scale_change()));
+
+}
+
+void MainDialog::scale_change(){
+    if(chwi->need_to_change){
+        chwi->close();
+            chwi->chart_reload();
+        chwi->show();
+    }
 }

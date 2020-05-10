@@ -1,4 +1,3 @@
-#include "styleset.h"
 #include "ui_chartwindow.h"
 #include "chartwindow.h"
 #include <QStyleFactory>
@@ -67,39 +66,52 @@ double chartwindow::str_to_timestamp(const std::string &date) const {
     return timestamp;
 }
 
+void chartwindow::one_day_reload() {
+    grouping_coefficient = 1;
+    need_to_change = true;
+}
+
+void chartwindow::two_days_reload() {
+    grouping_coefficient = 2;
+    need_to_change = true;
+}
+
+void chartwindow::three_days_reload() {
+    grouping_coefficient = 3;
+    need_to_change = true;
+}
+
+void chartwindow::week_reload() {
+    grouping_coefficient = 7;
+    need_to_change = true;
+}
+
+void chartwindow::month_reload() {
+    grouping_coefficient = 30;
+    need_to_change = true;
+}
+
 chartwindow::chartwindow(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::chartwindow) {
     ui->setupUi(this);
     this->setWindowTitle(tr("Charts"));
-    setMinimumSize(800, 600);
-    setMaximumSize(800, 600);
+    setMinimumSize(700, 600);
+    setMaximumSize(700, 600);
 
-    QTimer *theme_timer = new QTimer();
-    theme_timer->start(100);
-
-    //добавляем в вектор кнопки(потом это понадобится)(убрать)
-    buttons.push_back(ui->pushButton_0);
-    buttons.push_back(ui->pushButton_2);
-
-    connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-
-    //всё это вынесется потом в отдельный метод
-    themewin = new themewindow();
-    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(on_pushButton2_clicked()));
-    connect(theme_timer, SIGNAL(timeout()), this, SLOT(theme_change()));
+    connect(ui->one_day_button, SIGNAL(clicked()), this, SLOT(one_day_reload()));
+    connect(ui->two_days_button, SIGNAL(clicked()), this, SLOT(two_days_reload()));
+    connect(ui->three_days_button, SIGNAL(clicked()), this, SLOT(three_days_reload()));
+    connect(ui->week_button, SIGNAL(clicked()), this, SLOT(week_reload()));
+    connect(ui->month_button, SIGNAL(clicked()), this, SLOT(month_reload()));
 }
 
 chartwindow::~chartwindow() {
     delete ui;
 }
 
-void chartwindow::fill(const Model &model) {
 
-    QtCharts::QCandlestickSeries * acmeSeries = new QtCharts::QCandlestickSeries();
-    acmeSeries->setName(tr("Candles"));
-    acmeSeries->setIncreasingColor(QColor(Qt::green));
-    acmeSeries->setDecreasingColor(QColor(Qt::red));
+void chartwindow::fill(const Model &model) {
 
     const size_t size_of_data = model.get_size();
     ModelData tmp;
@@ -112,9 +124,21 @@ void chartwindow::fill(const Model &model) {
         tmp.begin_time = model.get_data_by_index(i).begin_time;
         data.push_back(std::move(tmp));
     }
+}
 
-    DataGrouping *convey = new DataGrouping(data, 2);
-    //2 -- параметр группировки, должен быть не константным
+void chartwindow::chart_reload(){
+
+    if(acmeSeries != nullptr) delete acmeSeries;
+    //if(axis != nullptr) delete axis;
+    if(chart != nullptr) delete chart;
+
+
+    acmeSeries = new QtCharts::QCandlestickSeries();
+    acmeSeries->setName(tr("Candles"));
+    acmeSeries->setIncreasingColor(QColor(Qt::green));
+    acmeSeries->setDecreasingColor(QColor(Qt::red));
+
+    DataGrouping *convey = new DataGrouping(data, grouping_coefficient);
     convey->compress_by_n_days();
     QStringList categories;
 
@@ -131,10 +155,20 @@ void chartwindow::fill(const Model &model) {
     chart->addSeries(acmeSeries);
     chart->setTitle(" ");
     chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
-    QtCharts::QBarCategoryAxis *axis = new QtCharts::QBarCategoryAxis();
-    //axis->append(categories);
+    axis = new QtCharts::QBarCategoryAxis();
+    axis->append(categories);
     chart->createDefaultAxes();
+
+    auto theme = chart->ChartThemeBrownSand;
+    chart->setTheme(theme);
+
     chart->setAxisX(axis, acmeSeries);
+
+    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis;
+    axisY->setTitleText(" ");
+    chart->addAxis(axisY, Qt::AlignLeft);
+
+
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
 
@@ -142,16 +176,11 @@ void chartwindow::fill(const Model &model) {
     chartView->setRubberBand(QtCharts::QChartView::HorizontalRubberBand);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setParent(ui->horizontalFrame); //важно
+
+    delete convey; //delete axis; delete acmeSeries;
+    need_to_change = false;
 }
 
-void chartwindow::on_pushButton_clicked() {
-    themewin->close();
-    chartwindow::close();
-}
-
-void chartwindow::on_pushButton2_clicked() const { // Гоша, название звучит ужасно
-    themewin->show();
-}
 
 void chartwindow::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
@@ -163,7 +192,7 @@ void chartwindow::keyPressEvent(QKeyEvent *event) {
             break;
         case Qt::Key_D:
             chartView->chart()->scroll(10, 0);//здесь можно не константы, а интовую
-                                                        // или дабловую переменную на чуствительность
+            // или дабловую переменную на чуствительность
             break;
         case Qt::Key_A:
             chartView->chart()->scroll(-10, 0);
@@ -177,27 +206,3 @@ void chartwindow::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-void chartwindow::theme_change() {
-    QString inp = themewin->get_theme_name();
-    QPalette pal_1(palette());
-    if (inp == "Default") {
-        this->setStyleSheet(styleset::getWindowStyleSheet());
-        for (auto butt : buttons) {
-            butt->setStyleSheet("background-color: #454545; ");
-        }
-    } else if (inp == "Dark") {
-        this->setAutoFillBackground(true);
-        pal_1.setColor(QPalette::Window, Qt::black);
-        this->setPalette(pal_1);
-        for (auto butt : buttons) {
-            butt->setStyleSheet(styleset::getCloseStyleSheet());
-        }
-    } else if (inp == "Red") {
-        this->setAutoFillBackground(true);
-        pal_1.setColor(QPalette::Window, Qt::red);
-        this->setPalette(pal_1);
-        for (auto butt : buttons) {
-            butt->setStyleSheet(styleset::getCloseStyleSheet());
-        }
-    }
-}

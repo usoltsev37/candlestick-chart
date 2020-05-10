@@ -2,7 +2,6 @@
 #define CHARTWINDOW_H
 
 #include "view.h"
-#include "themewindow.h"
 #include "model.h"
 
 #include <vector>
@@ -58,6 +57,11 @@ namespace Ui {
 
 
 class chartwindow : public QWidget {
+
+    Q_OBJECT
+
+    friend class MainDialog;
+
 public:
     explicit chartwindow(QWidget *parent = nullptr);
 
@@ -67,25 +71,33 @@ public:
 
     void fill(const Model &model); // Гоша, нужно обусдуить как нам побольше мувать
 
+    void chart_reload();
+
 private slots:
 
     // Слоты от кнопок главного окна
-    void on_pushButton_clicked();
+    void one_day_reload();
 
-    void on_pushButton2_clicked() const;
+    void two_days_reload() ;
 
-    void theme_change();//process
+    void three_days_reload();
+
+    void week_reload();
+
+    void month_reload();
 
     //void on_help_button_clicked();
-
 private:
     Ui::chartwindow *ui;
-    std::vector<QPushButton *> buttons;
-    themewindow *themewin;
-    QtCharts::QChart *chart;
+    //themewindow *themewin;
+    QtCharts::QChart *chart = nullptr;
     QtCharts::QChartView *chartView;
     std::vector<Candle> drawable_data;
-    std::vector<ModelData> data; // это дожно быть private ->data_
+    std::vector<ModelData> data;
+    QtCharts::QBarCategoryAxis *axis = nullptr;
+    QtCharts::QCandlestickSeries* acmeSeries = nullptr;
+    mutable int grouping_coefficient = 1;
+    bool need_to_change = false;
 protected:
     void keyPressEvent(QKeyEvent *event);
 };

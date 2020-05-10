@@ -17,16 +17,12 @@ add_executable(Project_candlestick_chart
         src/view.cpp
         src/MainDialog.cpp
         src/chartwindow.cpp
-        src/themewindow.cpp
-        src/styleset.cpp
 
         include/load.h
         include/model.h
         include/view.h
         include/MainDialog.h
         include/chartwindow.h
-        include/themewindow.h
-        include/styleset.h
         include/candlesFwd.h
 )
 

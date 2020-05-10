@@ -43,6 +43,9 @@ private:
     QDateTimeEdit *dateFrom_;
     QDateTimeEdit *dateTo_;
     QComboBox *comboBox;
+
+private slots:
+    void scale_change();
 };
 
 #endif //PROJECT_ANDLESTICK_HART_MAINDIALOG_H
