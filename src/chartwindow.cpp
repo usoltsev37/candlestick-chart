@@ -99,6 +99,7 @@ chartwindow::chartwindow(QWidget *parent) :
     setMinimumSize(700, 600);
     setMaximumSize(700, 600);
 
+    //надо не дать кнопкам нажиматься, пока перезагружается график, это многое ломает, ещё подумаю над этим
     connect(ui->one_day_button, SIGNAL(clicked()), this, SLOT(one_day_reload()));
     connect(ui->two_days_button, SIGNAL(clicked()), this, SLOT(two_days_reload()));
     connect(ui->three_days_button, SIGNAL(clicked()), this, SLOT(three_days_reload()));
@@ -126,58 +127,88 @@ void chartwindow::fill(const Model &model) {
     }
 }
 
+
+void chartwindow::chart_load(){
+
+    if(is_loaded == false){
+//        if(acmeSeries != nullptr) delete acmeSeries;
+//        if(chart != nullptr) delete chart;
+        acmeSeries = new QtCharts::QCandlestickSeries();
+        acmeSeries->setName(tr("Candles"));
+        acmeSeries->setIncreasingColor(QColor(Qt::green));
+        acmeSeries->setDecreasingColor(QColor(Qt::red));
+
+        convey = new DataGrouping(data, grouping_coefficient);
+        convey->compress_by_n_days();
+
+        for (auto candle : convey->result) {
+            const QDateTime dt = QDateTime::fromTime_t(candle.timestamp);
+            const QString textdate = dt.toString(Qt::TextDate);
+            categories << textdate;
+            acmeSeries->append(candle.candlestickSet);
+        }
+        acmeSeries->setBodyOutlineVisible(true);
+        chart = new QtCharts::QChart();
+        chart->addSeries(acmeSeries);
+        chart->setTitle(" ");
+        chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
+
+
+        axis = new QtCharts::QBarCategoryAxis();
+        axis->append(categories);
+        chart->createDefaultAxes();
+
+        auto theme = chart->ChartThemeBrownSand;
+        chart->setTheme(theme);
+
+        chart->setAxisX(axis, acmeSeries);
+
+    //    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis;
+    //    axisY->setTitleText(" ");
+    //    chart->addAxis(axisY, Qt::AlignLeft);
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+
+        chartView = new QtCharts::QChartView(chart);
+        chartView->setRubberBand(QtCharts::QChartView::HorizontalRubberBand);
+        chartView->setRenderHint(QPainter::Antialiasing);
+        chartView->setParent(ui->horizontalFrame);//прикрепляем
+        chartView->show();
+
+        convey->clear();
+        need_to_change = false; is_loaded = true;
+    }
+    else chart_reload();
+}
+
+
 void chartwindow::chart_reload(){
 
-    if(acmeSeries != nullptr) delete acmeSeries;
-    //if(axis != nullptr) delete axis;
-    if(chart != nullptr) delete chart;
 
-
-    acmeSeries = new QtCharts::QCandlestickSeries();
-    acmeSeries->setName(tr("Candles"));
-    acmeSeries->setIncreasingColor(QColor(Qt::green));
-    acmeSeries->setDecreasingColor(QColor(Qt::red));
-
-    DataGrouping *convey = new DataGrouping(data, grouping_coefficient);
+    convey->fill(data, grouping_coefficient);
     convey->compress_by_n_days();
-    QStringList categories;
 
-    for (auto candle : convey->result) {
+    categories.clear();
+    axis->clear();
+    acmeSeries->clear();
+    chart->removeSeries(acmeSeries);
+
+    for(auto candle : convey->result) {
         const QDateTime dt = QDateTime::fromTime_t(candle.timestamp);
         const QString textdate = dt.toString(Qt::TextDate);
         categories << textdate;
         acmeSeries->append(candle.candlestickSet);
     }
 
-    acmeSeries->setBodyOutlineVisible(true);
-
-    chart = new QtCharts::QChart();
+    //acmeSeries->setBodyOutlineVisible(true);
     chart->addSeries(acmeSeries);
-    chart->setTitle(" ");
-    chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
-    axis = new QtCharts::QBarCategoryAxis();
     axis->append(categories);
-    chart->createDefaultAxes();
-
-    auto theme = chart->ChartThemeBrownSand;
-    chart->setTheme(theme);
-
+    //axis->append(categories);
     chart->setAxisX(axis, acmeSeries);
 
-    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis;
-    axisY->setTitleText(" ");
-    chart->addAxis(axisY, Qt::AlignLeft);
+    chartView->repaint();
 
-
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
-
-    chartView = new QtCharts::QChartView(chart);
-    chartView->setRubberBand(QtCharts::QChartView::HorizontalRubberBand);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setParent(ui->horizontalFrame); //важно
-
-    delete convey; //delete axis; delete acmeSeries;
+    convey->clear();
     need_to_change = false;
 }
 

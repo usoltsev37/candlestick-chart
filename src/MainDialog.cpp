@@ -76,21 +76,20 @@ void MainDialog::enableShowButton(const QString &text) {
 void MainDialog::show_graph() {
 
     chartWindow->fill(loader.mm);
-    chartWindow->chart_reload();
+    chartWindow->chart_load();
 
     QTimer *timer_for_buttons = new QTimer();
     timer_for_buttons->start(200);
-
     connect(timer_for_buttons, SIGNAL(timeout()), this, SLOT(scale_change()));
 
-    //начальные периоды по месяцам
-    chartWindow->month_reload();
+    //начальные периоды по месяцам -- это не очень красиво, загрузка кривая получается
+    //chartWindow->month_reload();
 }
 
 void MainDialog::scale_change(){
     if(chartWindow->need_to_change){
-        chartWindow->close();
-            chartWindow->chart_reload();
-        chartWindow->show();
+        //chartWindow->close();
+            chartWindow->chart_load();
+        //chartWindow->show();
     }
 }
