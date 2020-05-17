@@ -70,7 +70,7 @@ void MainDialog::set_QHBox() {
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
-    //mainLayout->addWidget(chartWindow); //TODO NIKITA
+    mainLayout->addWidget(chartWindow); //TODO NIKITA
     setLayout(mainLayout);
 }
 
@@ -79,8 +79,8 @@ void MainDialog::findClicked() {
     loader.do_one_instrument_request(tmr);
     loader.timer = tmr;
     connect(tmr, &QTimer::timeout, this, [this]() {
-        show_graph();
-        this->loader.timer->deleteLater();
+        show_graph(); // убрать лямбду M
+        this->loader.timer->deleteLater(); // не нужна // M
     });
 }
 
@@ -92,7 +92,7 @@ void MainDialog::show_graph() {
 
     chartWindow->fill(loader.mm);
     chartWindow->chart_reload();
-    chartWindow->show();
+    chartWindow->show(); // показ немодального окна
 
     QTimer *timer_for_buttons = new QTimer();
     timer_for_buttons->start(200);

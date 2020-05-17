@@ -32,8 +32,8 @@ enum RequestType {
 class load : public QObject {
 Q_OBJECT
 public:
-    load() = default;
-    std::string date_to_string(QDateTimeEdit* date);
+    load() = default; // del useless M
+    std::string date_to_string(QDateTimeEdit* date); // static M
     void set_url(const std::string &str);
     void set_url(std::string str, QDateTimeEdit* dateFrom, QDateTimeEdit* dateTo); // Влад, можно сюда &str?????
     QUrl get_url() const;
@@ -44,7 +44,7 @@ public:
     Model mm;
     QTimer *timer;
 public slots:
-    void managerFinished(QNetworkReply *reply);
+    void managerFinished(QNetworkReply *reply); // завести сигнал, его повешать на слот в MD M
     void anotherRequest(QNetworkReply *reply);
 private:
     QUrl url;
