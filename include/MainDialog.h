@@ -31,10 +31,8 @@ private:
 
     void set_QHBox();
 
-    chartwindow *chwi; //добавил
+    chartwindow *chartWindow; //добавил
     load loader;
-    QString company_;
-    std::string company = "";
     QLabel *labelInstrumentName_;
     QPushButton *graphButton_;
     QPushButton *showButton_;

@@ -36,7 +36,7 @@ MainDialog::MainDialog(QWidget *parent)
     connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
 //    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
 
-    chwi = new chartwindow(); // TODO add this
+    chartWindow = new chartwindow(); // TODO add this
 
 
     set_QHBox();
@@ -70,7 +70,7 @@ void MainDialog::set_QHBox() {
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
-    //mainLayout->addWidget(chwi); //TODO NIKITA
+    //mainLayout->addWidget(chartWindow); //TODO NIKITA
     setLayout(mainLayout);
 }
 
@@ -90,9 +90,9 @@ void MainDialog::enableShowButton(const QString &text) {
 
 void MainDialog::show_graph() {
 
-    chwi->fill(loader.mm);
-    chwi->chart_reload();
-    chwi->show();
+    chartWindow->fill(loader.mm);
+    chartWindow->chart_reload();
+    chartWindow->show();
 
     QTimer *timer_for_buttons = new QTimer();
     timer_for_buttons->start(200);
@@ -102,9 +102,9 @@ void MainDialog::show_graph() {
 }
 
 void MainDialog::scale_change(){
-    if(chwi->need_to_change){
-        chwi->close();
-            chwi->chart_reload();
-        chwi->show();
+    if(chartWindow->need_to_change){
+        chartWindow->close();
+            chartWindow->chart_reload();
+        chartWindow->show();
     }
 }
