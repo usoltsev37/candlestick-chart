@@ -35,7 +35,6 @@ private:
     load loader;
     QLabel *labelInstrumentName_;
     QPushButton *loadButton_;
-    QPushButton *showButton_;
     QLabel *labelDateFrom_;
     QLabel *labelDateTo_;
     QDateTimeEdit *dateFrom_;

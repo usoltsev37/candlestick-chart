@@ -12,10 +12,8 @@
 MainDialog::MainDialog(QWidget *parent)
         : QDialog(parent) {
     loadButton_ = new QPushButton(tr("&LOAD"), this);
-    loadButton_->setEnabled(true);
-    showButton_ = new QPushButton(tr("&SHOW"), this);
-    showButton_->setDefault(true);
-    showButton_->setEnabled(true); //
+    loadButton_->setDefault(true);
+    loadButton_->setEnabled(true); //
     labelDateFrom_ = new QLabel(tr("Date From: "), this);
     labelDateTo_ = new QLabel(tr("Date To: "), this);
     dateFrom_ = new QDateTimeEdit(QDate(2020, 02, 01), this);
@@ -34,10 +32,8 @@ MainDialog::MainDialog(QWidget *parent)
             this, SLOT(enableShowButton(
                                const QString &)));
     connect(loadButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
-//    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
 
-    chartWindow = new chartwindow(); // TODO add this
-
+    chartWindow = new chartwindow();
 
     set_QHBox();
 
@@ -47,30 +43,19 @@ MainDialog::MainDialog(QWidget *parent)
 }
 
 void MainDialog::set_QHBox() {
-    QHBoxLayout *topLeftLayout = new QHBoxLayout();
-    topLeftLayout->addWidget(labelInstrumentName_);
-    topLeftLayout->addWidget(comboBox);
+    QHBoxLayout *bottomLayout = new QHBoxLayout();
+    bottomLayout->addWidget(labelInstrumentName_);
+    bottomLayout->addWidget(comboBox);
+    bottomLayout->addWidget(labelDateFrom_);
+    bottomLayout->addWidget(dateFrom_);
+    bottomLayout->addWidget(labelDateTo_);
+    bottomLayout->addWidget(dateTo_);
+    bottomLayout->addWidget(loadButton_);
 
-    QHBoxLayout *midLeftLayout = new QHBoxLayout();
-    midLeftLayout->addWidget(labelDateFrom_);
-    midLeftLayout->addWidget(dateFrom_);
-    QHBoxLayout *bottomLeftLayout = new QHBoxLayout();
-    bottomLeftLayout->addWidget(labelDateTo_);
-    bottomLeftLayout->addWidget(dateTo_);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->addWidget(chartWindow);
+    mainLayout->addLayout(bottomLayout);
 
-    QVBoxLayout *leftLayout = new QVBoxLayout();
-    leftLayout->addLayout(topLeftLayout);
-    leftLayout->addLayout(midLeftLayout);
-    leftLayout->addLayout(bottomLeftLayout);
-
-    QVBoxLayout *rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(loadButton_);
-    rightLayout->addWidget(showButton_);
-    rightLayout->addStretch();
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addLayout(leftLayout);
-    mainLayout->addLayout(rightLayout);
-    mainLayout->addWidget(chartWindow); //TODO NIKITA
     setLayout(mainLayout);
 }
 
@@ -85,7 +70,7 @@ void MainDialog::findClicked() {
 }
 
 void MainDialog::enableShowButton(const QString &text) {
-    showButton_->setEnabled(text != "-");
+    loadButton_->setEnabled(text != "-");
 }
 
 void MainDialog::show_graph() {
@@ -97,7 +82,7 @@ void MainDialog::show_graph() {
     timer_for_buttons->start(200);
 
     connect(timer_for_buttons, SIGNAL(timeout()), this, SLOT(scale_change()));
-    
+
     //начальные периоды по месяцам
     chartWindow->month_reload();
 }
