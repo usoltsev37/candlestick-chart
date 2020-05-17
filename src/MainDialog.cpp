@@ -70,7 +70,7 @@ void MainDialog::set_QHBox() {
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
-    //mainLayout->addWidget(chartWindow); //TODO NIKITA
+    mainLayout->addWidget(chartWindow); //TODO NIKITA
     setLayout(mainLayout);
 }
 
@@ -92,13 +92,14 @@ void MainDialog::show_graph() {
 
     chartWindow->fill(loader.mm);
     chartWindow->chart_reload();
-    chartWindow->show(); // показ немодального окна
 
     QTimer *timer_for_buttons = new QTimer();
     timer_for_buttons->start(200);
 
     connect(timer_for_buttons, SIGNAL(timeout()), this, SLOT(scale_change()));
-
+    
+    //начальные периоды по месяцам
+    chartWindow->month_reload();
 }
 
 void MainDialog::scale_change(){
