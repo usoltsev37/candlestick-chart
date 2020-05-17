@@ -50,6 +50,47 @@ public:
     }
 };
 
+class DataGrouping {
+public:
+    DataGrouping(std::vector<ModelData> in, int compressing_by_n_days) { // Гоша, а нельзя in замувать?
+        candle_vec = std::move(in);
+        tmp_open = candle_vec[0].open;
+        tmp_close = candle_vec[0].close;
+        tmp_high = candle_vec[0].high;
+        tmp_low = candle_vec[0].low;
+        unix_time_cnt = 0;
+        number_of_days = compressing_by_n_days;
+    }
+
+    void fill(std::vector<ModelData> in, int compressing_by_n_days){
+        candle_vec = std::move(in);
+        tmp_open = candle_vec[0].open;
+        tmp_close = candle_vec[0].close;
+        tmp_high = candle_vec[0].high;
+        tmp_low = candle_vec[0].low;
+        unix_time_cnt = 0;
+        number_of_days = compressing_by_n_days;
+    }
+
+    void clear(){
+        result.clear();
+        candle_vec.clear();
+        unix_time_cnt = number_of_days = 0;
+        tmp_open = tmp_close = tmp_high = tmp_low = 0;
+    }
+
+    void compress_by_n_days();
+
+    double str_to_timestamp(const std::string &date) const; // Гоша, точно такой же метод есть chartwindow, напишу обсудим как вынести это
+
+    std::vector<Candle> result;
+
+private:
+    std::vector<ModelData> candle_vec;
+
+    size_t unix_time_cnt, number_of_days;
+    double tmp_open, tmp_close, tmp_high, tmp_low;
+};
 
 namespace Ui {
     class chartwindow;
@@ -72,6 +113,10 @@ public:
     void fill(const Model &model); // Гоша, нужно обусдуить как нам побольше мувать
 
     void chart_reload();
+
+    void chart_load();
+
+    bool is_loaded = false;
 
 private slots:
 
@@ -98,34 +143,11 @@ private:
     QtCharts::QCandlestickSeries* acmeSeries = nullptr;
     mutable int grouping_coefficient = 1;
     bool need_to_change = false;
+    QStringList categories;
+    DataGrouping *convey;
 protected:
     void keyPressEvent(QKeyEvent *event);
 };
 
-
-class DataGrouping {
-public:
-    DataGrouping(std::vector<ModelData> in, int compressing_by_n_days) { // Гоша, а нельзя in замувать?
-        candle_vec = std::move(in);
-        tmp_open = candle_vec[0].open;
-        tmp_close = candle_vec[0].close;
-        tmp_high = candle_vec[0].high;
-        tmp_low = candle_vec[0].low;
-        unix_time_cnt = 0;
-        number_of_days = compressing_by_n_days;
-    }
-
-    void compress_by_n_days();
-
-    double str_to_timestamp(const std::string &date) const; // Гоша, точно такой же метод есть chartwindow, напишу обсудим как вынести это
-
-    std::vector<Candle> result;
-
-private:
-    std::vector<ModelData> candle_vec;
-
-    size_t unix_time_cnt, number_of_days;
-    double tmp_open, tmp_close, tmp_high, tmp_low;
-};
 
 #endif // CHARTWINDOW_H
