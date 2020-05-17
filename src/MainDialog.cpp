@@ -11,8 +11,8 @@
 
 MainDialog::MainDialog(QWidget *parent)
         : QDialog(parent) {
-    graphButton_ = new QPushButton(tr("&Draw"), this);
-    graphButton_->setEnabled(true);
+    loadButton_ = new QPushButton(tr("&LOAD"), this);
+    loadButton_->setEnabled(true);
     showButton_ = new QPushButton(tr("&SHOW"), this);
     showButton_->setDefault(true);
     showButton_->setEnabled(true); //
@@ -33,7 +33,7 @@ MainDialog::MainDialog(QWidget *parent)
                                      const QString &)),
             this, SLOT(enableShowButton(
                                const QString &)));
-    connect(graphButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
+    connect(loadButton_, SIGNAL(clicked()), this, SLOT(findClicked()));
 //    connect(showButton_, SIGNAL(clicked()), this, SLOT(showClicked()));
 
     chartWindow = new chartwindow(); // TODO add this
@@ -64,13 +64,13 @@ void MainDialog::set_QHBox() {
     leftLayout->addLayout(bottomLeftLayout);
 
     QVBoxLayout *rightLayout = new QVBoxLayout();
-    rightLayout->addWidget(graphButton_);
+    rightLayout->addWidget(loadButton_);
     rightLayout->addWidget(showButton_);
     rightLayout->addStretch();
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
-    mainLayout->addWidget(chartWindow); //TODO NIKITA
+    //mainLayout->addWidget(chartWindow); //TODO NIKITA
     setLayout(mainLayout);
 }
 

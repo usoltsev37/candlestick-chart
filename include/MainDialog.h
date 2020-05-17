@@ -34,7 +34,7 @@ private:
     chartwindow *chartWindow; //добавил
     load loader;
     QLabel *labelInstrumentName_;
-    QPushButton *graphButton_;
+    QPushButton *loadButton_;
     QPushButton *showButton_;
     QLabel *labelDateFrom_;
     QLabel *labelDateTo_;
