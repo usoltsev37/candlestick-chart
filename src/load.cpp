@@ -68,6 +68,7 @@ void load::anotherRequest(QNetworkReply *reply) {
         reply->deleteLater();
         return;
     }
+
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("candles");
