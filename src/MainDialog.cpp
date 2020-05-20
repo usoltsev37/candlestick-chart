@@ -39,6 +39,7 @@ MainDialog::MainDialog(QWidget *parent)
 
     setWindowTitle(tr("Сandlestick Сhart"));
     setFixedHeight(sizeHint().height());
+    loader.comboBox = comboBox;
     loader.do_all_instrument_request();
 }
 

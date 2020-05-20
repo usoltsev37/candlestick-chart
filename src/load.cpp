@@ -18,24 +18,15 @@ std::string load::date_to_string(QDateTimeEdit *date) {
     return s;
 }
 
-void load::set_url(const std::string &str) {
-    char cstr[str.size() + 1];
-    str.copy(cstr, str.size() + 1);
-    cstr[str.size()] = '\0';
-    url = QUrl(cstr);
+void load::set_all_instrument_url() {
+    std::string new_url = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json";
+    all_instrument_url = QUrl(new_url.c_str());
 }
 
-QUrl load::get_url() const {
-    return url;
+QUrl load::get_all_instrument_url() const {
+    return all_instrument_url;
 }
 
-void load::set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo) {
-    str += "?from=" + date_to_string(dateFrom) + "&till=" + date_to_string(dateTo)
-            + "&start=" + std::to_string(start);
-    start += 500; // Влад, давай сделаем магическую константу
-    std::cout << str << '\n';
-    set_url(str); //Влад, чтобы не дублировать код, хотя на первый взгляд какая-то "рекурсивная фукция" может переименовать?
-}
 
 void load::do_all_instrument_request() {
     manager = new QNetworkAccessManager(this);
@@ -43,8 +34,8 @@ void load::do_all_instrument_request() {
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(managerFinished(QNetworkReply * )));
 
-    set_url("https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities.json");
-    request.setUrl(get_url());
+    set_all_instrument_url();
+    request.setUrl(get_all_instrument_url());
     manager->get(request);
 }
 
@@ -59,19 +50,15 @@ void load::managerFinished(QNetworkReply *reply) {
     QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ALL_INSTRUMENTS);
+    comboBox->addItems(mm.get_list_of_futures());
 }
 
 void load::do_one_instrument_request(QTimer* timer) {
-    std::string s = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/SiU1/candles.json";
-    char cstr[s.size() + 1];       //
-    s.copy(cstr, s.size() + 1); // Влад, может просто вынести эти 3 строчки в функцию? И вроде этот метод называется c_str?
-    cstr[s.size()] = '\0';         //
-    std::cout << s << '\n';
-    QUrl url = QUrl(cstr);
+    set_one_instrument_url();
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(anotherRequest(QNetworkReply *)));
-    request.setUrl(url);
+    request.setUrl(get_one_instrument_url());
     manager->get(request);
 }
 
@@ -81,11 +68,25 @@ void load::anotherRequest(QNetworkReply *reply) {
         reply->deleteLater();
         return;
     }
+
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObj = document.object();
     QJsonValue value = jsonObj.value("candles");
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
+
     timer->start(1000); // Влад, давай сделаем магическую константу
+}
+
+QUrl load::get_one_instrument_url() const {
+    return one_instrument_url;
+}
+
+void load::set_one_instrument_url() {
+    std::string instrument_name = comboBox->currentText().toStdString();
+    std::string new_url = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/"
+                    + instrument_name + "/candles.json";
+    std::cerr << new_url << '\n';
+    one_instrument_url = new_url.c_str();
 }

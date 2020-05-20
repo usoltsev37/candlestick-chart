@@ -128,61 +128,64 @@ void chartwindow::fill(const Model &model) {
 }
 
 
-void chartwindow::chart_load(){
-
-    if(is_loaded == false){
+void chartwindow::chart_load() {
+    try {
+        if (is_loaded == false) {
 //        if(acmeSeries != nullptr) delete acmeSeries;
 //        if(chart != nullptr) delete chart;
-        acmeSeries = new QtCharts::QCandlestickSeries();
-        acmeSeries->setName(tr("Candles"));
-        acmeSeries->setIncreasingColor(QColor(Qt::green));
-        acmeSeries->setDecreasingColor(QColor(Qt::red));
+            acmeSeries = new QtCharts::QCandlestickSeries();
+            acmeSeries->setName(tr("Candles"));
+            acmeSeries->setIncreasingColor(QColor(Qt::green));
+            acmeSeries->setDecreasingColor(QColor(Qt::red));
 
-        convey = new DataGrouping(data, grouping_coefficient);
-        convey->compress_by_n_days();
+            convey = new DataGrouping(data, grouping_coefficient);
+            convey->compress_by_n_days();
 
-        for (auto candle : convey->result) {
-            const QDateTime dt = QDateTime::fromTime_t(candle.timestamp);
-            const QString textdate = dt.toString(Qt::TextDate);
-            categories << textdate;
-            acmeSeries->append(candle.candlestickSet);
-        }
-        acmeSeries->setBodyOutlineVisible(true);
-        chart = new QtCharts::QChart();
-        chart->addSeries(acmeSeries);
-        chart->setTitle(" ");
-        chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
+            for (auto candle : convey->result) {
+                const QDateTime dt = QDateTime::fromTime_t(candle.timestamp);
+                const QString textdate = dt.toString(Qt::TextDate);
+                categories << textdate;
+                acmeSeries->append(candle.candlestickSet);
+            }
+            acmeSeries->setBodyOutlineVisible(true);
+            chart = new QtCharts::QChart();
+            chart->addSeries(acmeSeries);
+            chart->setTitle(" ");
+            chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
 
 
-        axis = new QtCharts::QBarCategoryAxis();
-        axis->append(categories);
-        chart->createDefaultAxes();
+            axis = new QtCharts::QBarCategoryAxis();
+            axis->append(categories);
+            chart->createDefaultAxes();
 
-        auto theme = chart->ChartThemeBrownSand;
-        chart->setTheme(theme);
+            auto theme = chart->ChartThemeBrownSand;
+            chart->setTheme(theme);
 
-        chart->setAxisX(axis, acmeSeries);
+            chart->setAxisX(axis, acmeSeries);
 
-    //    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis;
-    //    axisY->setTitleText(" ");
-    //    chart->addAxis(axisY, Qt::AlignLeft);
-        chart->legend()->setVisible(true);
-        chart->legend()->setAlignment(Qt::AlignBottom);
+            //    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis;
+            //    axisY->setTitleText(" ");
+            //    chart->addAxis(axisY, Qt::AlignLeft);
+            chart->legend()->setVisible(true);
+            chart->legend()->setAlignment(Qt::AlignBottom);
 
-        chartView = new QtCharts::QChartView(chart);
-        chartView->setRubberBand(QtCharts::QChartView::HorizontalRubberBand);
-        chartView->setRenderHint(QPainter::Antialiasing);
-        chartView->setParent(ui->horizontalFrame);//прикрепляем
-        chartView->show();
+            chartView = new QtCharts::QChartView(chart);
+            chartView->setRubberBand(QtCharts::QChartView::HorizontalRubberBand);
+            chartView->setRenderHint(QPainter::Antialiasing);
+            chartView->setParent(ui->horizontalFrame);//прикрепляем
+            chartView->show();
 
-        convey->clear();
-        need_to_change = false; is_loaded = true;
+            convey->clear();
+            need_to_change = false;
+            is_loaded = true;
+        } else chart_reload();
+    } catch (const std::bad_alloc& e) {
+        std::cerr << "chart_load() failed!\n";
     }
-    else chart_reload();
 }
 
 
-void chartwindow::chart_reload(){
+void chartwindow::chart_reload() {
 
 
     convey->fill(data, grouping_coefficient);
@@ -193,7 +196,7 @@ void chartwindow::chart_reload(){
     acmeSeries->clear();
     chart->removeSeries(acmeSeries);
 
-    for(auto candle : convey->result) {
+    for (auto candle : convey->result) {
         const QDateTime dt = QDateTime::fromTime_t(candle.timestamp);
         const QString textdate = dt.toString(Qt::TextDate);
         categories << textdate;
