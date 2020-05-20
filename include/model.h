@@ -4,6 +4,7 @@
 //#include "load.h"
 #include <string>
 #include <vector>
+#include <QtCore/QStringList>
 
 class QJsonArray;
 class QJsonValueRef;
@@ -36,6 +37,8 @@ public:
     ModelData get_data_by_index(const std::size_t index) const;
 
     std::size_t get_size() const;
+
+    QStringList get_list_of_futures() const;
 
 private:
     std::vector<ModelData> data_;

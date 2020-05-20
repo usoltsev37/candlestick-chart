@@ -9,6 +9,7 @@ enum RequestType {
 };
 
 void Model::set_fields(QJsonArray &data_array, std::size_t type) {
+    std::size_t accuracy = 1000;
     if (data_array.empty()) {
         std::cout << "\nDataArraySize\n";
     } else if (type == ALL_INSTRUMENTS) {
@@ -22,10 +23,10 @@ void Model::set_fields(QJsonArray &data_array, std::size_t type) {
         for (std::size_t i = 0; i < data_sz_; i++) {
             QJsonArray array = data_array[i].toArray();
             ModelData current_data;
-            current_data.open = array[0].toDouble();
-            current_data.close = array[1].toDouble();
-            current_data.high = array[2].toDouble();
-            current_data.low = array[3].toDouble();
+            current_data.open = array[0].toDouble() / accuracy;
+            current_data.close = array[1].toDouble() / accuracy;
+            current_data.high = array[2].toDouble() / accuracy;
+            current_data.low = array[3].toDouble() / accuracy;
             current_data.begin_time = convert_to_std_string(array[6]);
             current_data.end_time = convert_to_std_string(array[7]);
             data_.push_back(current_data);
@@ -78,4 +79,12 @@ ModelData Model::get_data_by_index(const std::size_t index) const {
 
 std::size_t Model::get_size() const {
     return data_.size();
+}
+
+QStringList Model::get_list_of_futures() const {
+    QStringList list;
+    for (auto it : futures_list_) {
+        list.append(QString::fromStdString(it));
+    }
+    return list;
 }

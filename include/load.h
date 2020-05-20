@@ -43,6 +43,7 @@ public:
     QNetworkRequest request;
     Model mm;
     QTimer *timer;
+    QComboBox *comboBox;
 public slots:
     void managerFinished(QNetworkReply *reply); // завести сигнал, его повешать на слот в MD M
     void anotherRequest(QNetworkReply *reply);

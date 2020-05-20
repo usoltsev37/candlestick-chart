@@ -59,6 +59,8 @@ void load::managerFinished(QNetworkReply *reply) {
     QJsonValue value = jsonObj.value("securities");
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ALL_INSTRUMENTS);
+//    QStringList sequence_len = QStringList() << tr("1") << tr("2") << tr("3") << tr("4") << tr("5");
+    comboBox->addItems(mm.get_list_of_futures());
 }
 
 void load::do_one_instrument_request(QTimer* timer) {
@@ -87,5 +89,6 @@ void load::anotherRequest(QNetworkReply *reply) {
     QJsonArray dataObj = value.toObject().value("data").toArray();
     mm.set_fields(dataObj, ONE_INSTRUMENT);
     std::cout << mm;
+
     timer->start(1000); // Влад, давай сделаем магическую константу
 }
