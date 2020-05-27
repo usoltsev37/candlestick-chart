@@ -62,7 +62,7 @@ void MainDialog::set_QHBox() {
 
 void MainDialog::findClicked() {
     QTimer* tmr = new QTimer(this);
-    loader.do_one_instrument_request(tmr);
+    loader.do_one_instrument_request(tmr, dateFrom_, dateTo_);
     loader.timer = tmr;
     connect(tmr, &QTimer::timeout, this, [this]() {
         show_graph(); // убрать лямбду M

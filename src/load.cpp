@@ -53,8 +53,9 @@ void load::managerFinished(QNetworkReply *reply) {
     comboBox->addItems(mm.get_list_of_futures());
 }
 
-void load::do_one_instrument_request(QTimer* timer) {
-    set_one_instrument_url();
+void load::do_one_instrument_request(QTimer* timer, QDateTimeEdit *dateFrom_, QDateTimeEdit *dateTo_) {
+    set_one_instrument_url(dateFrom_, dateTo_);
+
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply * )),
                      this, SLOT(anotherRequest(QNetworkReply *)));
@@ -83,10 +84,11 @@ QUrl load::get_one_instrument_url() const {
     return one_instrument_url;
 }
 
-void load::set_one_instrument_url() {
+void load::set_one_instrument_url(QDateTimeEdit *dateFrom_, QDateTimeEdit *dateTo_) {
     std::string instrument_name = comboBox->currentText().toStdString();
     std::string new_url = "https://iss.moex.com/iss/engines/futures/markets/forts/boards/RFUD/securities/"
-                    + instrument_name + "/candles.json";
+                    + instrument_name + "/candles.json" + "?from=" + date_to_string(dateFrom_)
+                    + "&till=" + date_to_string(dateTo_);
     std::cerr << new_url << '\n';
     one_instrument_url = new_url.c_str();
 }
