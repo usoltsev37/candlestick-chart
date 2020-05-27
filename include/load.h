@@ -43,8 +43,8 @@ class load : public QObject {
 Q_OBJECT
 public:
     load() = default; // del useless M
-    std::string date_to_string(QDateTimeEdit *date); // static M
-//    void set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo); // Влад, можно сюда &str?????
+    std::string date_to_string(QDateTimeEdit *date);
+//    void set_url(std::string str, QDateTimeEdit *dateFrom, QDateTimeEdit *dateTo);
 
     void set_all_instrument_url();
 
@@ -54,9 +54,9 @@ public:
 
     void do_all_instrument_request();
 
-    void do_one_instrument_request(QTimer *timer);
+    void do_one_instrument_request(QTimer* timer, QDateTimeEdit *dateFrom_, QDateTimeEdit *dateTo_);
 
-    void set_one_instrument_url();
+    void set_one_instrument_url(QDateTimeEdit *dateFrom_, QDateTimeEdit *dateTo_);
 
     QNetworkAccessManager *manager;
     QNetworkRequest request;
